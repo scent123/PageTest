@@ -126,11 +126,11 @@ function renderCurrentWeather(data, locationName = "현재 위치") {
             <img src="${codeToIconURL(code)}" alt="${desc}">
             <div class="current-info">
                 <div class="location">${locationName}</div>
-                <div class="temp">${tmep !== null ? Math.round(temp) + '°' : '-'}</div>
+                <div class="temp">${temp !== null ? Math.round(temp) + '°' : '-'}</div>
                 <div class="condition">${desc}</div>
                 <div class="hi-low">
                     최고: ${max !== null ? max + '°' : '--'} /
-                    최고: ${min !== null ? min + '°' : '--'} 
+                    최저: ${min !== null ? min + '°' : '--'} 
                 </div>
             </div>
         </div>
@@ -181,7 +181,7 @@ function renderDailyWeather(data) {
                 <img src="${codeToIconURL(codes[i])}" alt="">
                 <div class="temp max">${Math.round(maxTemps[i])}</div>
                 <div class="bar">
-                    <div class="fill" style="width: ${(maxTemp[i] - minTemp[i]) * 3}px"></div>
+                    <div class="fill" style="width: ${(maxTemps[i] - minTemps[i]) * 3}px"></div>
                 </div>
                 <div class="temp min">${Math.round(minTemps[i])}°</div>
             </div>
