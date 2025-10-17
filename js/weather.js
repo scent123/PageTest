@@ -33,7 +33,7 @@ function codeToIconURL(code) {
         snow: "13d",
     };
     const cond = codeToCondition(code);
-    const iconCode = mapp[cond] || "01d";
+    const iconCode = map[cond] || "01d";
 
     return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 }
