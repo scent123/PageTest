@@ -6,12 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/style.css">
-    <script src="./js/script.js"></script>
     <title>SeonJin Kim</title>
 </head>
 
 <body>
-    <div class="window">
+    <div class="window finder hidden">
         <div class="header">
             <div class="remote">
                 <div class="buttons close"></div>
@@ -20,10 +19,11 @@
             </div>
             <div class="directory">
                 <div class="folder-icon"></div>
-                <h2 class="folder-name">Projects</h2>
+                <h2 class="folder-name"></h2>
             </div>
         </div>
-        <div class="content"></div>
+        <div class="content">
+        </div>
 
         <!-- resize-handles -->
         <div class="resize-handle top"></div>
@@ -36,39 +36,117 @@
         <div class="resize-handle bottom-left"></div>
         <div class="resize-handle bottom-right"></div>
     </div>
+
+    <div class="window calculator hidden" data-app="calculator">
+        <div class="header">
+            <div class="remote">
+                <div class="buttons close"></div>
+                <div class="buttons minimize"></div>
+                <div class="buttons zoom"></div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="display">
+                <div class="formula"></div>
+                <div class="current">0</div>
+            </div>
+            <div class="buttons">
+                <button class="btn grey" data-value="back">⌫</button>
+                <button class="btn grey" data-value="AC">AC</button>
+                <button class="btn grey">&#37;</button>
+                <button class="btn orange" data-value="/">&#247;</button>
+
+                <button class="btn">7</button>
+                <button class="btn">8</button>
+                <button class="btn">9</button>
+                <button class="btn orange" data-value="*">&#10005;</button>
+
+                <button class="btn">4</button>
+                <button class="btn">5</button>
+                <button class="btn">6</button>
+                <button class="btn orange" data-value="-">&#8722;</button>
+
+                <button class="btn">1</button>
+                <button class="btn">2</button>
+                <button class="btn">3</button>
+                <button class="btn orange" data-value="+">&#43;</button>
+
+                <button class="btn">+/-</button>
+                <button class="btn">0</button>
+                <button class="btn">&#46;</button>
+                <button class="btn orange" data-value="=">&#61;</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="window weather hidden" data-app="weather">
+        <div class="header">
+            <div class="remote">
+                <div class="buttons close"></div>
+                <div class="buttons minimize"></div>
+                <div class="buttons zoom"></div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="weather-current">
+                <div class="location">-</div>
+                <div class="temp">-°</div>
+                <div class="condition">-</div>
+                <div class="hi-low">최고: --° / 최저: --°</div>
+            </div>
+
+            <div class="weather-hourly">
+                <div class="hourly-summary">-</div>
+                <div class="hourly-scroll">
+                    <!--  -->
+                </div>
+            </div>
+
+            <div class="weather-daily">
+                <div class="daily-header">
+                    <img src="./images/daily-icon.png" alt="calender-icon">
+                    <span class="daily-title">10일간의 일기예보</span>
+                </div>
+                <div class="daily-scroll">
+                    <!--  -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <main>
         <div class="background-image"></div>
         <section class="app-grid">
             <h2>app-launchPad</h2>
-            <a href="#" class="icon">
+            <a href="#" class="app" data-app="finder">
                 <img src="./images/Profile.png" alt="Profile-image" class="icon-picture">
                 <span class='app-name'>Profile</span>
             </a>
-            <a href="#" class="icon">
+            <a href="#" class="app" data-app="finder">
                 <img src="./images/Design.png" alt="Design-image" class="icon-picture">
                 <span class='app-name'>Design</span>
             </a>
-            <a href="#" class="icon">
+            <a href="#" class="app" data-app="finder">
                 <img src="./images/Projects.png" alt="Projects-image" class="icon-picture">
                 <span class='app-name'>Projects</span>
             </a>
-            <a href="#" class="icon">
+            <a href="#" class="app" data-app="finder">
                 <img src="./images/Tools.png" alt="Tools-image" class="icon-picture">
                 <span class='app-name'>Tools</span>
             </a>
-            <a href="#" class="icon">
+            <a href="#" class="app" data-app="calculator">
                 <img src="./images/calculator.png" alt="Calculator-image" class="icon-picture">
                 <span class='app-name'>Calculator</span>
             </a>
-            <a href="#" class="icon">
+            <a href="#" class="app" data-app="">
                 <img src="./images/resume.png" alt="Resume-image" class="icon-picture">
                 <span class='app-name'>Resume</span>
             </a>
-            <a href="#" class="icon">
+            <a href="#" class="app" data-app="weather">
                 <img src="./images/Weather.png" alt="Weather-image" class="icon-picture">
                 <span class='app-name'>Weather</span>
             </a>
-            <a href="#" class="icon">
+            <a href="#" class="app" data-app="">
                 <img src="./images/Snippets.png" alt="Snippets-image" class="icon-picture">
                 <span class='app-name'>Snippets</span>
             </a>
@@ -77,17 +155,24 @@
     <footer class="dock">
         <div class="dock-start">SeonJin Kim</div>
         <div class="dock-icons">
-            <a href="#" class="dock-icon"><img src="./images/Profile.png" alt=""></a>
-            <a href="#" class="dock-icon"><img src="./images/Design.png" alt=""></a>
-            <a href="#" class="dock-icon"><img src="./images/Projects.png" alt=""></a>
-            <a href="#" class="dock-icon"><img src="./images/Tools.png" alt=""></a>
-            <a href="#" class="dock-icon"><img src="./images/calculator.png" alt=""></a>
-            <a href="#" class="dock-icon"><img src="./images/resume.png" alt=""></a>
-            <a href="#" class="dock-icon"><img src="./images/Weather.png" alt=""></a>
-            <a href="#" class="dock-icon"><img src="./images/Snippets.png" alt=""></a>
+            <a href="#" class="dock-icon" data-app="finder"><img src="./images/Profile.png" alt=""></a>
+            <a href="#" class="dock-icon" data-app="finder"><img src="./images/Design.png" alt=""></a>
+            <a href="#" class="dock-icon" data-app="finder"><img src="./images/Projects.png" alt=""></a>
+            <a href="#" class="dock-icon" data-app="finder"><img src="./images/Tools.png" alt=""></a>
+            <a href="#" class="dock-icon" data-app="calculator"><img src="./images/calculator.png" alt=""></a>
+            <a href="#" class="dock-icon" data-app="resume"><img src="./images/resume.png" alt=""></a>
+            <a href="#" class="dock-icon" data-app="weather"><img src="./images/Weather.png" alt=""></a>
+            <a href="#" class="dock-icon" data-app="snippets"><img src="./images/Snippets.png" alt=""></a>
         </div>
         <div class="dock-clock"></div>
     </footer>
+
+    <!-- script -->
+    <script src="./js/finder.js"></script>
+    <script src="./js/dock.js"></script>
+    <script src="./js/calculator.js"></script>
+    <script src="./js/weather.js"></script>
 </body>
 
 </html>
+

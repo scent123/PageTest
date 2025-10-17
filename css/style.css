@@ -7,8 +7,12 @@ body {
     flex-direction: column;
     min-height: 100vh;
     font-size: 1rem;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 }
 
+/* -----------------window-------------------- */
 .window {
     width: 42.75rem;
     height: 30.25rem;
@@ -17,30 +21,115 @@ body {
     background-color: #fff;
     z-index: 1;
     position: absolute;
+    top: 10%;
+    left: 20%;
+    transition: none;
 }
 
+.window.animating {
+    transition: all 0.4s ease;
+}
+
+.window.is-zoomed {
+    top: 2rem;
+    height: 2rem;
+    width: calc(100vw - 4rem);
+    height: calc(100vh - 4rem);
+    /* transition: all 0.45s ease; */
+}
+
+.window.is-closing {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.25s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+/* -----------------window resize-------------------- */
 .resize-handle {
     position: absolute;
     background: transparent;
 }
 
-.top { top: 0; left: 50%; width: 100%; height: 0.5rem; cursor: ns-resize; transform: translateX(-50%); }
-.bottom { bottom: 0; left: 50%; width: 100%; height: 0.5rem; cursor: ns-resize; transform: translateX(-50%); }
-.left { left: 0; top: 50%; width: 0.5rem; height: 100%; cursor: ew-resize; transform: translateY(-50%); }
-.right { right: 0; top: 50%; width: 0.5rem; height: 100%; cursor: ew-resize; transform: translateY(-50%); }
+.top {
+    top: 0;
+    left: 50%;
+    width: 100%;
+    height: 0.5rem;
+    cursor: ns-resize;
+    transform: translateX(-50%);
+}
 
-.top-left { top: 0; left: 0; width: 0.75rem; height: 0.75rem; cursor: nwse-resize; }
-.top-right { top: 0; right: 0; width: 0.75rem; height: 0.75rem; cursor: nwse-resize; }
-.bottom-left { bottom: 0; left: 0; width: 0.75rem; height: 0.75rem; cursor: nwse-resize; }
-.bottom-right { bottom: 0; right: 0; width: 0.75rem; height: 0.75rem; cursor: nwse-resize; }
+.bottom {
+    bottom: 0;
+    left: 50%;
+    width: 100%;
+    height: 0.5rem;
+    cursor: ns-resize;
+    transform: translateX(-50%);
+}
 
-.window>.header {
+.left {
+    left: 0;
+    top: 50%;
+    width: 0.5rem;
+    height: 100%;
+    cursor: ew-resize;
+    transform: translateY(-50%);
+}
+
+.right {
+    right: 0;
+    top: 50%;
+    width: 0.5rem;
+    height: 100%;
+    cursor: ew-resize;
+    transform: translateY(-50%);
+}
+
+.top-left {
+    top: 0;
+    left: 0;
+    width: 0.75rem;
+    height: 0.75rem;
+    cursor: nwse-resize;
+}
+
+.top-right {
+    top: 0;
+    right: 0;
+    width: 0.75rem;
+    height: 0.75rem;
+    cursor: nwse-resize;
+}
+
+.bottom-left {
+    bottom: 0;
+    left: 0;
+    width: 0.75rem;
+    height: 0.75rem;
+    cursor: nwse-resize;
+}
+
+.bottom-right {
+    bottom: 0;
+    right: 0;
+    width: 0.75rem;
+    height: 0.75rem;
+    cursor: nwse-resize;
+}
+
+.window .header {
     display: flex;
     flex-direction: column;
     align-items: stretch;
     border-bottom: 2px solid #E6E6E6;
 }
 
+/* -----------------window buttons-------------------- */
 .remote {
     width: 4rem;
     height: 1rem;
@@ -61,16 +150,20 @@ body {
 
 .buttons.close {
     background-color: #ff736a;
+    cursor: pointer;
 }
 
 .buttons.minimize {
     background-color: #FEBC2E;
+    cursor: pointer;
 }
 
 .buttons.zoom {
     background-color: #19C332;
+    cursor: pointer;
 }
 
+/* -----------------window header-------------------- */
 .directory {
     display: flex;
     justify-content: center;
@@ -82,11 +175,356 @@ body {
     width: 1.5rem;
     height: 1.5rem;
     background-size: contain;
-    background-image: url('../images/folder.png');
+    /* background-image: url('../images/folder.png'); */
     background-repeat: no-repeat;
     padding-right: 0.5em;
 }
 
+/* -----------------window content-------------------- */
+.content {
+    display: flex;
+    height: calc(100% - 3.125rem);
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.finder-columns {
+    flex: 0 0 192px;
+    list-style: none;
+    margin: 0;
+    border-right: 1px solid #dcdcdc;
+    background: transparent;
+}
+
+.finder-columns.no-right-border {
+    border-right: none !important;
+}
+
+.folder {
+    width: 12rem;
+    height: 2.25rem;
+    cursor: pointer;
+    padding: 0.5em;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+.list-picture {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5em;
+}
+
+.folder.selected {
+    background-color: #007aff;
+    color: #fff;
+}
+
+/* -----------------window preview-------------------- */
+.finder-preview {
+    flex: 0 0 360px;
+}
+
+.finder-preview {
+    min-width: 25rem;
+    flex: 0 0 auto;
+    width: 16.25rem;
+    border-right: none;
+}
+
+.preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
+}
+
+.preview>img {
+    max-width: 16rem;
+    max-height: 12rem;
+    margin-bottom: 2em;
+}
+
+.preview>.property-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.property-container>.property {
+    display: flex;
+    margin-left: -1em;
+    margin-bottom: 0.8em;
+    line-height: 1.5em;
+}
+
+.property>.key {
+    max-width: 4rem;
+    color: #999;
+    margin-right: 0.5em;
+    text-align: right;
+}
+
+.property>.value {
+    flex-shrink: 1;
+}
+
+/* -----------------Calculator-------------------- */
+.window.calculator {
+    max-width: 14.5rem;
+    max-height: 25.5rem;
+    min-width: 14.5rem;
+    background-color: #fafafa;
+    border-radius: 1rem;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.2),
+        inset 0 0 2px 1px rgba(255, 255, 255, 0.25),
+        0 16px 48px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+    user-select: none;
+    position: absolute;
+}
+
+.window.calculator .header {
+    width: 100%;
+    height: 3rem;
+    background-color: #1E1E1E;
+    border: none;
+}
+
+.window.calculator .header .remote .zoom {
+    background-color: #656565;
+}
+
+/* 계산기 내부 */
+.calculator .content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.calculator .display {
+    width: 100%;
+    height: 4.5rem;
+    background-color: #1E1E1E;
+    color: #fff;
+    font-size: 2rem;
+    padding-right: 0.5em;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.calculator .display .formula {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #999;
+}
+
+.calculator .content .buttons {
+    display: grid;
+    height: calc(100% - 7.5rem);
+    grid-template-columns: repeat(4, 1fr);
+    /* padding: 0.5rem; */
+    background: #1E1E1E;
+    box-sizing: border-box;
+}
+
+.calculator .content .buttons .btn {
+    width: 3rem;
+    height: 3rem;
+    /* padding: 1rem; */
+    color: #fff;
+    font-size: 1.5rem;
+    background: #474747;
+    border-radius: 5rem;
+    border: none;
+    box-shadow:
+        0 2px 2px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.35),
+        inset 0 0 2px 0 rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    margin-top: 0.25rem;
+    margin-left: 0.25rem;
+}
+
+.calculator .buttons .btn.grey {
+    background-color: #717171;
+}
+
+.calculator .buttons .btn.orange {
+    background-color: #FF9200;
+}
+
+.calculator .buttons .btn:active {
+    background: #ddd;
+}
+
+/* -----------------Weather-------------------- */
+.window.weather {
+    min-width: 21.5rem;
+    max-width: 21.5rem;
+    min-height: 47.25rem;
+    max-height: 47.25rem;
+    border-radius: 1rem;
+    background: linear-gradient(to bottom, #4a90e2, #50cfd0);
+    color: #fff;
+    overflow: hidden;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+}
+
+.window.weather .header {
+    width: 100%;
+    height: 3rem;
+    background-color: transparent;
+    border: none;
+}
+
+.window.weather .header .remote .zoom {
+    background-color: #656565;
+}
+
+.window.weather .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* 현재 날씨 */
+.weather-current {
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.weather-current .location {
+    font-size: 1.2rem;
+}
+
+.weather-current .temp {
+    font-size: 4rem;
+    font-weight: bold;
+    margin: 0.3rem 0;
+}
+
+.weather-current .condition {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.weather-current .hi-low {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* 시간별 예보 */
+.weather-hourly {
+    padding: 0.5rem 1rem;
+}
+
+.weather-hourly .hourly-summary {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+.weather-hourly .hourly-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.weather-hourly .hour-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 3.5rem;
+}
+
+.weather-hourly .hour-block .hour {
+    font-size: 0.85rem;
+    margin-bottom: 0.2rem;
+}
+
+.weather-hourly .hour-block img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.weather-hourly .hour-block .htemp {
+    font-size: 0.9rem;
+    margin-top: 0.1rem;
+}
+
+/* 일별 예보 */
+.weather-daily {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.weather-daily .daily-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.weather-daily .daily-header img.daily-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.weather-daily .daily-scroll {
+    overflow-y: auto;
+    flex: 1;
+}
+
+.weather-daily .day-block {
+    display: grid;
+    grid-template-columns: 3rem 2.5rem 2rem 1fr 2rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.weather-daily .day-block .day {
+    font-size: 0.9rem;
+}
+
+.weather-daily .day-block img {
+    width: 1.8rem;
+    height: 1.8rem;
+}
+
+.weather-daily .day-block .temp.min,
+.weather-daily .day-block .temp.max {
+    font-size: 0.85rem;
+}
+
+.weather-daily .day-block .bar {
+    position: relative;
+    height: 0.4rem;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 0.2rem;
+}
+
+.weather-daily .day-block .bar .fill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-radius: 0.2rem;
+    background: #fff;
+}
+
+/* -----------------main-------------------- */
 main {
     display: flex;
     flex: 1;
@@ -130,7 +568,7 @@ main {
     border: 0;
 }
 
-.icon {
+.app {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -140,9 +578,9 @@ main {
     height: 8rem;
 }
 
-.icon:hover {
+.app:hover {
     background-color: rgba(79, 79, 79, 0.6);
-    border-radius: 8px;
+    border-radius: 0.5em;
 }
 
 .icon-picture {
@@ -154,6 +592,8 @@ main {
 .app-name {
     color: #000;
 }
+
+/* -----------------dock-------------------- */
 
 .dock {
     display: flex;
@@ -205,7 +645,11 @@ main {
 
 
 /* tablet */
-@media (min-width: 768px) and (max-width: 1023px) {}
+@media (min-width: 768px) and (max-width: 1023px) {
+    .app-grid {
+        max-width: 32rem;
+    }
+}
 
 /* mobile */
 @media (max-width: 767px) {
@@ -213,3 +657,13 @@ main {
         width: 16rem;
     }
 }
+
+
+
+/*
+// https://design-zia.vercel.app/mac-os-dock
+
+// https://www.danielprior.dev/
+// https://www.reddit.com/r/developersIndia/comments/1k4kyg4/i_built_a_macosstyle_developer_portfolio_in_the/?tl=ko
+// https://github.com/daprior/danielprior-macos
+ */
