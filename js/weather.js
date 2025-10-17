@@ -189,8 +189,26 @@ function renderDailyWeather(data) {
     }).join("");
 }
 
+// 좌표 -> 위치 이름 변환
+async function getLocationName(lat, lon) {
+    try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+        const data = await res.json();
+
+        const location = data.address.city || data.address.town || data.address.village || data.address.state;
+
+        return location || "현재 위치";
+    }
+    catch (err) {
+        console.error("위치 이름 가져오기 실패:", err);
+        return "현재 위치";
+    }
+}
+
 // 날씨 데이터 가져오기
-async function fetchWeatherData(lat, lon, locationName = "현재 위치") {
+async function fetchWeatherData(lat, lon) {
+    const locationName = await getLocationName(lat, lon);
+
     const API_URL = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&hourly=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min,weather_code&timezone=auto`;
     try {
         const res = await fetch(API_URL);
@@ -204,6 +222,7 @@ async function fetchWeatherData(lat, lon, locationName = "현재 위치") {
     }
 }
 
+// 사용자 위치 가져오기
 function getUserLocation() {
     if (!navigator.geolocation) {
         console.error("이 브라우저는 위치 정보를 지원하지 않습니다.");
