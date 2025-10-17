@@ -114,7 +114,7 @@ function renderCurrentWeather(data, locationName = "현재 위치") {
     const el = document.querySelector('.weather-current');
     if (!el) return;
 
-    const tmep = data.current?.temperature_2m ?? null;
+    const temp = data.current?.temperature_2m ?? null;
     const code = data.current?.weather_code ?? null;
     const desc = weatherCodes[code] || "Unknown";
 
