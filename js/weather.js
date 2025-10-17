@@ -116,6 +116,7 @@ function renderCurrentWeather(data, locationName = "현재 위치") {
 
     const tmep = data.current?.temperature_2m ?? null;
     const code = data.current?.weather_code ?? null;
+    const desc = weatherCodes[code] || "Unknown";
 
     const max = data.daily?.temperature_2m_max?.[0] ?? null;
     const min = data.daily?.temperature_2m_min?.[0] ?? null;
