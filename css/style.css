@@ -10,7 +10,12 @@ body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
 }
+
 
 /* -----------------window-------------------- */
 .window {
@@ -18,24 +23,37 @@ body {
     height: 30.25rem;
     min-width: 18rem;
     border-radius: 1.5em;
-    background-color: #fff;
     z-index: 1;
     position: absolute;
     top: 10%;
     left: 20%;
     transition: none;
+    display: none;
+    overflow: hidden;
+}
+
+.window.finder {
+    background-color: #fff;
+}
+
+.window.active {
+    display: block;
+    /* transition: all 0.8s ease; */
+}
+
+.window.weather.active {
+    display: flex;
 }
 
 .window.animating {
     transition: all 0.4s ease;
 }
 
-.window.is-zoomed {
-    top: 2rem;
-    height: 2rem;
-    width: calc(100vw - 4rem);
-    height: calc(100vh - 4rem);
-    /* transition: all 0.45s ease; */
+.window .header {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    border-bottom: 2px solid #E6E6E6;
 }
 
 .window.is-closing {
@@ -44,8 +62,71 @@ body {
     transition: all 0.25s ease;
 }
 
-.hidden {
-    display: none;
+.window.is-minimizing {
+    transform: scale(0.25) translateY(100vh);
+}
+
+
+.window.is-zoomed .resize-handle {
+    pointer-events: none;
+}
+
+/* -----------------window buttons-------------------- */
+.remote {
+    width: 4rem;
+    height: 1rem;
+    position: absolute;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.remote>.buttons {
+    width: 1rem;
+    height: 1rem;
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    border-radius: 100%;
+    box-sizing: border-box;
+    position: relative;
+    /* margin-left: 0.5em; */
+}
+
+.buttons.close {
+    background-color: #ff736a;
+    cursor: pointer;
+}
+
+.buttons.minimize {
+    background-color: #FEBC2E;
+    cursor: pointer;
+}
+
+.buttons.zoom {
+    background-color: #19C332;
+    cursor: pointer;
+}
+
+.remote:hover .buttons.close::after {
+    content: url('../images/close.png');
+    position: absolute;
+    bottom: 0%;
+    left: 27%;
+}
+
+.remote:hover .buttons.minimize::after {
+    content: url('../images/minimize.png');
+    position: absolute;
+    bottom: 17%;
+    left: 17%;
+}
+
+
+.remote:hover .buttons.zoom::after {
+    content: url('../images/zoom.png');
+    position: absolute;
+    bottom: 12%;
+    left: 30%;
+    scale: 1.2;
 }
 
 /* -----------------window resize-------------------- */
@@ -103,7 +184,7 @@ body {
     right: 0;
     width: 0.75rem;
     height: 0.75rem;
-    cursor: nwse-resize;
+    cursor: nesw-resize;
 }
 
 .bottom-left {
@@ -111,7 +192,7 @@ body {
     left: 0;
     width: 0.75rem;
     height: 0.75rem;
-    cursor: nwse-resize;
+    cursor: nesw-resize;
 }
 
 .bottom-right {
@@ -122,46 +203,6 @@ body {
     cursor: nwse-resize;
 }
 
-.window .header {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    border-bottom: 2px solid #E6E6E6;
-}
-
-/* -----------------window buttons-------------------- */
-.remote {
-    width: 4rem;
-    height: 1rem;
-    position: absolute;
-    padding: 1em;
-    display: flex;
-    justify-content: space-between;
-}
-
-.remote>.buttons {
-    width: 1rem;
-    height: 1rem;
-    border: 0.5px solid rgba(0, 0, 0, 0.1);
-    border-radius: 100%;
-    box-sizing: border-box;
-    /* margin-left: 0.5em; */
-}
-
-.buttons.close {
-    background-color: #ff736a;
-    cursor: pointer;
-}
-
-.buttons.minimize {
-    background-color: #FEBC2E;
-    cursor: pointer;
-}
-
-.buttons.zoom {
-    background-color: #19C332;
-    cursor: pointer;
-}
 
 /* -----------------window header-------------------- */
 .directory {
@@ -180,7 +221,7 @@ body {
     padding-right: 0.5em;
 }
 
-/* -----------------window content-------------------- */
+/* -----------------finder content-------------------- */
 .content {
     display: flex;
     height: calc(100% - 3.125rem);
@@ -190,19 +231,15 @@ body {
 }
 
 .finder-columns {
-    flex: 0 0 192px;
+    flex: 0 0 auto;
+    min-width: 12rem;
     list-style: none;
     margin: 0;
     border-right: 1px solid #dcdcdc;
     background: transparent;
 }
 
-.finder-columns.no-right-border {
-    border-right: none !important;
-}
-
 .folder {
-    width: 12rem;
     height: 2.25rem;
     cursor: pointer;
     padding: 0.5em;
@@ -222,14 +259,10 @@ body {
     color: #fff;
 }
 
-/* -----------------window preview-------------------- */
-.finder-preview {
-    flex: 0 0 360px;
-}
-
+/* -----------------finder preview-------------------- */
 .finder-preview {
     min-width: 25rem;
-    flex: 0 0 auto;
+    flex: 1 1;
     width: 16.25rem;
     border-right: none;
 }
@@ -247,9 +280,20 @@ body {
     margin-bottom: 2em;
 }
 
-.preview>.property-container {
+.window.finder .preview>.property-container {
     display: flex;
     flex-direction: column;
+}
+
+.window.finder .preview-closeBtn {
+    display: none;
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 1.2rem;
+    position: relative;
+    right: 0;
+    cursor: pointer;
 }
 
 .property-container>.property {
@@ -295,6 +339,11 @@ body {
 
 .window.calculator .header .remote .zoom {
     background-color: #656565;
+    cursor: default;
+}
+
+.window.calculator .remote:hover .buttons.zoom::after {
+    content: none !important;
 }
 
 /* 계산기 내부 */
@@ -305,30 +354,97 @@ body {
 }
 
 .calculator .display {
+    position: relative;
     width: 100%;
     height: 4.5rem;
     background-color: #1E1E1E;
     color: #fff;
-    font-size: 2rem;
-    padding-right: 0.5em;
     box-sizing: border-box;
+    padding: 0 0.5em;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scrollbar-width: thin;
+}
+
+.calculator .display-inner {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     align-items: flex-end;
+    text-align: right;
+    width: max-content;
+    min-width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.calculator .display .formula,
+.calculator .display .current {
+    display: block;
+    text-align: right;
 }
 
 .calculator .display .formula {
     font-size: 1.5rem;
-    margin-bottom: 0.5rem;
     color: #999;
+    margin-bottom: 0.3rem;
+    min-height: 1.8rem;
+}
+
+.calculator .display .current {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.calculator .display-blur {
+    position: absolute;
+    top: 3rem;
+    bottom: 0;
+    width: 100%;
+    height: 4.5rem;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.calculator .display-blur::before,
+.calculator .display-blur::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0.5rem;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* 왼쪽: 어둡게 → 투명 */
+.calculator .display-blur::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(30, 30, 30, 0.95), rgba(30, 30, 30, 0.3), transparent);
+}
+
+/* 오른쪽: 어둡게 ← 투명 */
+.calculator .display-blur::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(30, 30, 30, 0.95), rgba(30, 30, 30, 0.3), transparent);
+}
+
+/* JS에서 추가할 클래스에 따라 보이게 함 */
+.calculator .display.show-left::before {
+    opacity: 1;
+}
+
+.calculator .display.show-right::after {
+    opacity: 1;
 }
 
 .calculator .content .buttons {
     display: grid;
+    /* grid-template-columns: repeat(4, 1fr); */
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+    justify-items: center;
     height: calc(100% - 7.5rem);
-    grid-template-columns: repeat(4, 1fr);
-    /* padding: 0.5rem; */
     background: #1E1E1E;
     box-sizing: border-box;
 }
@@ -336,7 +452,7 @@ body {
 .calculator .content .buttons .btn {
     width: 3rem;
     height: 3rem;
-    /* padding: 1rem; */
+    aspect-ratio: 1 / 1;
     color: #fff;
     font-size: 1.5rem;
     background: #474747;
@@ -347,8 +463,6 @@ body {
         0 0 0 1px rgba(255, 255, 255, 0.35),
         inset 0 0 2px 0 rgba(255, 255, 255, 0.15);
     cursor: pointer;
-    margin-top: 0.25rem;
-    margin-left: 0.25rem;
 }
 
 .calculator .buttons .btn.grey {
@@ -365,18 +479,19 @@ body {
 
 /* -----------------Weather-------------------- */
 .window.weather {
-    min-width: 21.5rem;
-    max-width: 21.5rem;
-    min-height: 47.25rem;
-    max-height: 47.25rem;
+    width: 25rem;
+    height: 52rem;
     border-radius: 1rem;
     background: linear-gradient(to bottom, #4a90e2, #50cfd0);
     color: #fff;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     position: absolute;
-    display: flex;
     flex-direction: column;
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.2),
+        inset 0 0 2px 1px rgba(255, 255, 255, 0.25),
+        0 16px 48px rgba(0, 0, 0, 0.35);
 }
 
 .window.weather .header {
@@ -384,17 +499,25 @@ body {
     height: 3rem;
     background-color: transparent;
     border: none;
+    position: relative;
 }
 
-.window.weather .header .remote .zoom {
+.window.weather .header .remote .buttons.zoom {
     background-color: #656565;
+    cursor: default;
+}
+
+.window.weather .remote:hover .buttons.zoom::after {
+    content: none !important;
 }
 
 .window.weather .content {
     flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-width: none;
 }
 
 /* 현재 날씨 */
@@ -409,13 +532,14 @@ body {
 
 .weather-current .temp {
     font-size: 4rem;
-    font-weight: bold;
+    font-weight: 700;
     margin: 0.3rem 0;
 }
 
 .weather-current .condition {
     font-size: 1rem;
     opacity: 0.9;
+    margin-bottom: 0.5rem;
 }
 
 .weather-current .hi-low {
@@ -425,19 +549,40 @@ body {
 
 /* 시간별 예보 */
 .weather-hourly {
-    padding: 0.5rem 1rem;
+    margin: 0.5rem 1rem;
+    background-color: rgba(255, 255, 255, 0.25);
+    box-sizing: border-box;
+    border-radius: 1rem;
+    padding: 1rem;
 }
 
 .weather-hourly .hourly-summary {
+    width: 80%;
+    height: 3rem;
+    margin-bottom: 1rem;
     font-size: 0.95rem;
-    margin-bottom: 0.5rem;
+    text-align: left;
+    white-space: break-spaces;
+    line-height: 1.2;
+    position: relative;
+}
+
+.weather-hourly .hourly-summary::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 125%;
+    height: 0.1rem;
+    background: rgba(255, 255, 255, 0.4);
 }
 
 .weather-hourly .hourly-scroll {
     display: flex;
     overflow-x: auto;
+    overflow-y: hidden;
     gap: 1rem;
-    padding-bottom: 0.5rem;
+    scrollbar-width: none;
 }
 
 .weather-hourly .hour-block {
@@ -448,34 +593,45 @@ body {
 }
 
 .weather-hourly .hour-block .hour {
-    font-size: 0.85rem;
-    margin-bottom: 0.2rem;
+    font-size: 0.875rem;
+    font-weight: medium;
 }
 
 .weather-hourly .hour-block img {
-    width: 2rem;
-    height: 2rem;
+    width: 3rem;
+    height: 3rem;
+    margin: 0.3rem 0;
 }
 
 .weather-hourly .hour-block .htemp {
-    font-size: 0.9rem;
+    font-size: 0.875rem;
+    font-size: 1rem;
+    font-weight: medium;
     margin-top: 0.1rem;
 }
 
 /* 일별 예보 */
 .weather-daily {
     flex: 1;
+    margin: 0.5rem 1rem 1rem;
     padding: 0.5rem 1rem;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 1rem;
 }
 
 .weather-daily .daily-header {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    padding: 0.5rem;
     margin-bottom: 0.5rem;
+}
+
+.weather-daily .daily-header .daily-title {
+    font-size: 0.875rem;
+    font-weight: normal;
 }
 
 .weather-daily .daily-header img.daily-icon {
@@ -483,37 +639,45 @@ body {
     height: 1.5rem;
 }
 
-.weather-daily .daily-scroll {
-    overflow-y: auto;
-    flex: 1;
-}
-
 .weather-daily .day-block {
-    display: grid;
-    grid-template-columns: 3rem 2.5rem 2rem 1fr 2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-around;
     align-items: center;
     margin-bottom: 0.5rem;
+    height: 2.5rem;
+    position: relative;
 }
 
-.weather-daily .day-block .day {
-    font-size: 0.9rem;
+.weather-daily .day-block:last-child {
+    margin-bottom: 0;
+}
+
+.weather-daily .day-block::after {
+    content: '';
+    position: absolute;
+    top: -0.25rem;
+    left: 0;
+    width: 100%;
+    height: 0.1rem;
+    border-radius: 2rem;
+    background: rgba(255, 255, 255, 0.4);
 }
 
 .weather-daily .day-block img {
-    width: 1.8rem;
-    height: 1.8rem;
-}
-
-.weather-daily .day-block .temp.min,
-.weather-daily .day-block .temp.max {
-    font-size: 0.85rem;
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .weather-daily .day-block .bar {
-    position: relative;
+    width: 10rem;
     height: 0.4rem;
+    position: relative;
     background: rgba(255, 255, 255, 0.3);
     border-radius: 0.2rem;
+    overflow: hidden;
 }
 
 .weather-daily .day-block .bar .fill {
@@ -521,7 +685,8 @@ body {
     top: 0;
     bottom: 0;
     border-radius: 0.2rem;
-    background: #fff;
+    background: linear-gradient(to right, #fff, #dff6ff);
+    transition: all 0.3s ease;
 }
 
 /* -----------------main-------------------- */
@@ -538,9 +703,6 @@ main {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image:
-        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-        url('../images/background_1.jpg');
     background-size: cover;
     background-position: center;
 }
@@ -569,6 +731,7 @@ main {
 }
 
 .app {
+    all: unset;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -581,6 +744,10 @@ main {
 .app:hover {
     background-color: rgba(79, 79, 79, 0.6);
     border-radius: 0.5em;
+}
+
+.app .app-name {
+    color: #fff;
 }
 
 .icon-picture {
@@ -597,9 +764,8 @@ main {
 
 .dock {
     display: flex;
-    width: calc(100vw - 3rem);
-    max-width: 100vw;
-    height: 4rem;
+    width: 100vw;
+    height: 5rem;
     align-items: center;
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(8px);
@@ -607,6 +773,7 @@ main {
     border-radius: 1rem;
     position: fixed;
     bottom: 0;
+    box-sizing: border-box;
 }
 
 .dock-start {
@@ -624,16 +791,30 @@ main {
 }
 
 .dock-icon {
+    all: unset;
     width: 3rem;
     height: 3rem;
     margin-right: 2em;
+    position: relative;
+}
+
+.dock-icon.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0.3rem;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0.35rem;
+    height: 0.35rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 1rem;
 }
 
 .dock-icon>img {
     width: 3rem;
     height: 3rem;
 }
-
 
 .dock-clock {
     color: #fff;
@@ -644,17 +825,123 @@ main {
 }
 
 
-/* tablet */
+/* -------------------------------
+* Tablet
+-------------------------------- */
 @media (min-width: 768px) and (max-width: 1023px) {
     .app-grid {
         max-width: 32rem;
     }
 }
 
-/* mobile */
+/* -------------------------------
+* mobile
+-------------------------------- */
 @media (max-width: 767px) {
+
+    /* -------------------------------
+     * Window
+    -------------------------------- */
+    .window {
+        width: 100vw;
+        height: calc(100vh - 5rem);
+        top: 0;
+        left: 0;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .window.finder .content {
+        display: flex;
+        overflow-x: hidden;
+        position: relative;
+    }
+
+    .window.finder .content .finder-preview {
+        min-width: 100%;
+    }
+
+    .window.finder .content .finder-columns {
+        flex: 0 0 100%;
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    .window.finder .preview-closeBtn {
+        display: block;
+    }
+
+    /* -------------------------------
+     * calculator
+    -------------------------------- */
+    .window.calculator {
+        min-width: 100vw;
+        max-width: 100vw;
+        max-height: calc(100vh - 5rem);
+    }
+
+    .window.calculator .content {
+        height: calc(100% - 3rem);
+    }
+
+    .window.calculator .display-blur {
+        height: 15rem;
+    }
+
+    .window.calculator .display {
+        height: 15rem;
+    }
+
+    .window.calculator .display-inner {
+        justify-content: center;
+    }
+
+    .window.calculator .display .current {
+        font-size: 3rem;
+    }
+
+    .window.calculator .content .buttons {
+        height: calc(100% - 15rem);
+    }
+
+    .window.calculator .buttons .btn {
+        width: 5rem;
+        height: 5rem;
+    }
+
+    /* -------------------------------
+     * weather
+    -------------------------------- */
+    .window.weather {
+        width: 100%;
+        height: calc(100% - 5rem);
+    }
+
+    /* -------------------------------
+     * app-grid
+    -------------------------------- */
     .app-grid {
         width: 16rem;
+        border: none;
+        background: none;
+        backdrop-filter: blur(0);
+    }
+
+    .dock {
+        z-index: 10000;
+        border-radius: 0;
+    }
+
+    .dock-start {
+        font-size: 1rem;
+    }
+
+    .dock-icon {
+        display: none;
+    }
+
+    .dock-clock {
+        display: none;
     }
 }
 

@@ -1,117 +1,123 @@
-// ----- dock-clock -----
-function getCurrentTIme() {
-    const now = new Date();
+// dock.js
+// Dock 관련 기능 (아이콘 클릭, Finder/Calculator/Weather 실행, 시계 업데이트)
+// export: initDock()
 
-    const month = now.getMonth() + 1;
-    const date = now.getDate();
-    const days = ['일', '월', '화', '수', '목', '금', '토'];
-    const day = days[now.getDay()];
+export function initDock() {
+    function shouldShowClock() {}
 
-    const hours = String(now.getHours()).padStart(2, "0");
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    const seconds = String(now.getSeconds()).padStart(2, "0");
+    function getCurrentTime() {
+        const now = new Date();
+        const month = now.getMonth() + 1;
+        const date = now.getDate();
+        const days = ['일', '월', '화', '수', '목', '금', '토'];
+        const day = days[now.getDay()];
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const seconds = String(now.getSeconds()).padStart(2, "0");
 
-    document.querySelector('.dock-clock').innerText =
-        `${month}월 ${date}일 (${day}) ${hours}:${minutes}:${seconds}`;
-}
+        const clockEl = document.querySelector('.dock-clock');
+        if (clockEl) {
+            clockEl.innerText = `${month}월 ${date}일 (${day}) ${hours}:${minutes}:${seconds}`;
+        }
+    }
 
-getCurrentTIme();
-setInterval(getCurrentTIme, 900);
+    // 시계 작동
+    function startClock() {
+        getCurrentTime();
+        return setInterval(getCurrentTime, 1000);
+    }
 
-function openApp(app) {
-    const targetWindow = document.querySelector(`.window.${app}`);
-    if (!targetWindow) return;
+    let clockInterval = null;
 
-    targetWindow.classList.remove('hidden');
-    targetWindow.style.opacity = 0;
-    targetWindow.style.transform = 'scale(0.9)';
+    // 창의 너비가 768이 넘으면 시계가 startClock 함수 작동
+    function handleClockResponsive() {
+        if (window.innerWidth >= 768) {
+            if (!clockInterval) clockInterval = startClock();
+        }
+        else {
+            if (clockInterval) {
+                clearInterval(clockInterval);
+                clockInterval = null;
+            }
+        }
+    }
 
-    setTimeout(() => {
-        targetWindow.style.opacity = 1;
-        targetWindow.style.transform = 'scale(1)';
-    }, 20);
-}
+    // 창 크기가 변해도 함수를 읽을수 있도록
+    window.addEventListener('resize', handleClockResponsive);
+    handleClockResponsive();
 
-function initDockAfterFinder() {
-    const dockIcons = document.querySelectorAll('.dock-icon');
+    function openApp(app) {
+        const targetWindow = document.querySelector(`.window.${app}`);
+        if (!targetWindow) return;
 
-    dockIcons.forEach(icon => {
-        icon.addEventListener('click', e => {
-            e.preventDefault();
+        targetWindow.classList.add('active');
+        targetWindow.style.opacity = 0;
+        targetWindow.style.transform = 'scale(0.9)';
 
-            const app = icon.dataset.app;
+        const dockIcon = document.querySelector(`.dock-icon[data-app="${app}"]`);
+        if (dockIcon) dockIcon.classList.add('active');
 
-            if (app === 'finder') {
-                const img = icon.querySelector('img').getAttribute('src');
-                let folderName = '';
+        setTimeout(() => {
+            targetWindow.style.opacity = 1;
+            targetWindow.style.transform = 'scale(1)';
+        }, 20);
+    }
 
-                let path;
-                if (img.includes('Profile')) {
-                    path = ['Users', 'Seonjin', 'Desktop', 'Profile'];
-                    folderName = 'Profile'
-                }
-                else if (img.includes('Design')) {
-                    path = ['Users', 'Seonjin', 'Desktop', 'Design']
-                    folderName = 'Design';
-                }
-                else if (img.includes('Projects')) {
-                    path = ['Users', 'Seonjin', 'Desktop', 'Projects}'];
-                    folderName = 'Projects';
-                }
-                else if (img.includes('Tools')) {
-                    path = ['Users', 'Seonjin', 'Desktop', 'Tools']
-                    folderName = 'Tools';
-                }
-                else {
-                    path = ['Users', 'Seonjin', 'Desktop'];
-                    folderName = 'Desktop'
-                };
 
-                const finderWindow = document.querySelector('.window.finder');
-                if (!finderWindow || finderWindow.classList.contains('hidden')) {
-                    if (typeof openApp === 'function') openApp('finder');
-                }
+    function initDockAfterFinder() {
+        const dockIcons = document.querySelectorAll('.dock-icon');
 
-                const openWhenReady = () => {
-                    if (window.Finder && typeof window.Finder.openFinderWindow === 'function') {
-                        const finderApp = document.querySelector('.app[data-app="finder"]');
-                        if (finderApp) {
-                            window.Finder.openFinderWindow(finderApp);
-                            window.Finder.openPath(path);
+        dockIcons.forEach(icon => {
+            icon.addEventListener('click', e => {
+                e.preventDefault();
+                const app = icon.dataset.app;
 
-                            const windowName = finderWindow.querySelector('.folder-name');
-                            const windowImg = finderWindow.querySelector('.folder-icon');
-                            if (windowName) windowName.textContent = folderName;
-                            if (windowImg) windowImg.style.backgroundImage = `url(${img})`;
-                        }
-                    } else {
-                        setTimeout(openWhenReady(), 100);
+                if (app === 'finder') {
+                    const finderWindow = document.querySelector('.window.finder');
+
+                    if (!finderWindow || !finderWindow.classList.contains('active')) {
+                        openApp('finder');
                     }
-                };
-                openWhenReady();
-            }
 
-            else if (app === 'calculator') {
-                // TODO: Calculator window open
-                openApp('calculator');
-            }
-            else if (app === 'Resume') {
-                // TODO: Notion Resume link
-            }
-            else if (app === 'Weather') {
-                // TODO: Weather window open
-                openApp('weather');
-            }
-            else if (app === 'Snippets') {
-                // TODO: Notion Snippets link
-            }
+                    const openWhenReady = () => {
+                        if (window.Finder && typeof window.Finder.openFinderWindow === 'function') {
+                            const finderApp = document.querySelector('.app[data-app="finder"]');
+                            if (finderApp) {
+                                window.Finder.openFinderWindow(finderApp);
 
+                                const lastPath = window.Finder.currentPath || ['Users', 'Seonjin', 'Desktop'];
+                                window.Finder.openPath(lastPath);
+                            }
+                        }
+                        else {
+                            setTimeout(() => openWhenReady, 100);
+                        }
+                    }
+                }
+
+                else if (app === 'calculator') {
+                    openApp('calculator');
+                }
+
+                else if (app === 'weather') {
+                    openApp('weather');
+                }
+
+                else if (app === 'resume') {
+                    // TODO: Notion 링크 등 연결 가능
+                }
+
+                else if (app === 'snippets') {
+                    // TODO: 링크 연결 가능
+                    // window.open('https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link')
+                }
+            });
         });
-    });
-}
+    }
 
-// if (window.Finder) {
-initDockAfterFinder();
-// } else {
-//     window.addEventListener('FinderReady', initDockAfterFinder, { once: true });
-// }
+    if (window.Finder) {
+        initDockAfterFinder();
+    } else {
+        window.addEventListener('FinderReady', initDockAfterFinder, { once: true });
+    }
+}

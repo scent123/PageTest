@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="window finder hidden">
+    <div class="window finder">
         <div class="header">
             <div class="remote">
                 <div class="buttons close"></div>
@@ -37,7 +37,7 @@
         <div class="resize-handle bottom-right"></div>
     </div>
 
-    <div class="window calculator hidden" data-app="calculator">
+    <div class="window calculator" data-app="calculator">
         <div class="header">
             <div class="remote">
                 <div class="buttons close"></div>
@@ -46,9 +46,12 @@
             </div>
         </div>
         <div class="content">
+            <div class="display-blur"></div>
             <div class="display">
-                <div class="formula"></div>
-                <div class="current">0</div>
+                <div class="display-inner">
+                    <div class="formula"></div>
+                    <div class="current">0</div>
+                </div>
             </div>
             <div class="buttons">
                 <button class="btn grey" data-value="back">⌫</button>
@@ -79,7 +82,7 @@
         </div>
     </div>
 
-    <div class="window weather hidden" data-app="weather">
+    <div class="window weather" data-app="weather">
         <div class="header">
             <div class="remote">
                 <div class="buttons close"></div>
@@ -118,35 +121,35 @@
         <div class="background-image"></div>
         <section class="app-grid">
             <h2>app-launchPad</h2>
-            <a href="#" class="app" data-app="finder">
+            <button class="app" data-app="finder">
                 <img src="./images/Profile.png" alt="Profile-image" class="icon-picture">
                 <span class='app-name'>Profile</span>
-            </a>
-            <a href="#" class="app" data-app="finder">
+            </button>
+            <button class="app" data-app="finder">
                 <img src="./images/Design.png" alt="Design-image" class="icon-picture">
                 <span class='app-name'>Design</span>
-            </a>
-            <a href="#" class="app" data-app="finder">
+            </button>
+            <button class="app" data-app="finder">
                 <img src="./images/Projects.png" alt="Projects-image" class="icon-picture">
                 <span class='app-name'>Projects</span>
-            </a>
-            <a href="#" class="app" data-app="finder">
+            </button>
+            <button class="app" data-app="finder">
                 <img src="./images/Tools.png" alt="Tools-image" class="icon-picture">
                 <span class='app-name'>Tools</span>
-            </a>
-            <a href="#" class="app" data-app="calculator">
+            </button>
+            <button class="app" data-app="calculator">
                 <img src="./images/calculator.png" alt="Calculator-image" class="icon-picture">
                 <span class='app-name'>Calculator</span>
-            </a>
-            <a href="#" class="app" data-app="">
+            </button>
+            <button class="app" data-app="weather">
+                <img src="./images/Weather.png" alt="Weather-image" class="icon-picture">
+                <span class='app-name'>Weather</span>
+            </button>
+            <a class="app" data-app="resume" href="https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link" target="_blank" rel="noopener noreferrer">
                 <img src="./images/resume.png" alt="Resume-image" class="icon-picture">
                 <span class='app-name'>Resume</span>
             </a>
-            <a href="#" class="app" data-app="weather">
-                <img src="./images/Weather.png" alt="Weather-image" class="icon-picture">
-                <span class='app-name'>Weather</span>
-            </a>
-            <a href="#" class="app" data-app="">
+            <a class="app" data-app="snippets" href="https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link" target="_blank" rel="noopener noreferrer">
                 <img src="./images/Snippets.png" alt="Snippets-image" class="icon-picture">
                 <span class='app-name'>Snippets</span>
             </a>
@@ -155,24 +158,16 @@
     <footer class="dock">
         <div class="dock-start">SeonJin Kim</div>
         <div class="dock-icons">
-            <a href="#" class="dock-icon" data-app="finder"><img src="./images/Profile.png" alt=""></a>
-            <a href="#" class="dock-icon" data-app="finder"><img src="./images/Design.png" alt=""></a>
-            <a href="#" class="dock-icon" data-app="finder"><img src="./images/Projects.png" alt=""></a>
-            <a href="#" class="dock-icon" data-app="finder"><img src="./images/Tools.png" alt=""></a>
-            <a href="#" class="dock-icon" data-app="calculator"><img src="./images/calculator.png" alt=""></a>
-            <a href="#" class="dock-icon" data-app="resume"><img src="./images/resume.png" alt=""></a>
-            <a href="#" class="dock-icon" data-app="weather"><img src="./images/Weather.png" alt=""></a>
-            <a href="#" class="dock-icon" data-app="snippets"><img src="./images/Snippets.png" alt=""></a>
+            <button class="dock-icon" data-app="finder"><img src="./images/folder.png" alt=""></button>
+            <button class="dock-icon" data-app="calculator"><img src="./images/calculator.png" alt=""></button>
+            <button class="dock-icon" data-app="weather"><img src="./images/Weather.png" alt=""></button>
+            <a class="dock-icon" data-app="resume" href="https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link" target="_blank" rel="noopener noreferrer"><img src="./images/resume.png" alt=""></a>
+            <a class="dock-icon" data-app="snippets" href="https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link" target="_blank" rel="noopener noreferrer"><img src="./images/Snippets.png" alt=""></a>
         </div>
         <div class="dock-clock"></div>
     </footer>
 
-    <!-- script -->
-    <script src="./js/finder.js"></script>
-    <script src="./js/dock.js"></script>
-    <script src="./js/calculator.js"></script>
-    <script src="./js/weather.js"></script>
+    <script type="module" src="./js/main.js"></script>
 </body>
 
 </html>
-
