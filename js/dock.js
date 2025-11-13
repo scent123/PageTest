@@ -3,7 +3,7 @@
 // export: initDock()
 
 export function initDock() {
-    function shouldShowClock() {}
+    // function shouldShowClock() {}
 
     function getCurrentTime() {
         const now = new Date();

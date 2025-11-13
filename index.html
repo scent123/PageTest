@@ -3,13 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum=5.0, user-scalable=yes">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/style.css">
     <title>SeonJin Kim</title>
 </head>
 
 <body>
+    <!-- <div class="background-image"></div> -->
+
     <div class="window finder">
         <div class="header">
             <div class="remote">
@@ -46,11 +48,13 @@
             </div>
         </div>
         <div class="content">
-            <div class="display-blur"></div>
-            <div class="display">
-                <div class="display-inner">
-                    <div class="formula"></div>
-                    <div class="current">0</div>
+            <div class="display-wrapper">
+                <div class="display-blur"></div>
+                <div class="display">
+                    <div class="display-inner">
+                        <div class="formula"></div>
+                        <div class="current">0</div>
+                    </div>
                 </div>
             </div>
             <div class="buttons">
@@ -118,7 +122,6 @@
     </div>
 
     <main>
-        <div class="background-image"></div>
         <section class="app-grid">
             <h2>app-launchPad</h2>
             <button class="app" data-app="finder">
@@ -145,24 +148,62 @@
                 <img src="./images/Weather.png" alt="Weather-image" class="icon-picture">
                 <span class='app-name'>Weather</span>
             </button>
-            <a class="app" data-app="resume" href="https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link" target="_blank" rel="noopener noreferrer">
+            <a class="app" data-app="resume"
+                href="https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link"
+                target="_blank" rel="noopener noreferrer">
                 <img src="./images/resume.png" alt="Resume-image" class="icon-picture">
                 <span class='app-name'>Resume</span>
             </a>
-            <a class="app" data-app="snippets" href="https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link" target="_blank" rel="noopener noreferrer">
+            <a class="app" data-app="snippets"
+                href="https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link"
+                target="_blank" rel="noopener noreferrer">
                 <img src="./images/Snippets.png" alt="Snippets-image" class="icon-picture">
                 <span class='app-name'>Snippets</span>
             </a>
         </section>
     </main>
+
+    <nav class="dock-menu" aria-label="Start Menu">
+        <section class="dock-menu-overlay">
+            <header class="menu-header">
+                <h2>Recent Items</h2>
+            </header>
+            <ul class="menu-list">
+                <li>
+                    <article class="folder-entry" data-folder="${folder.name}">
+                        <img src="./images/folder.png" alt="${folder.name}" class="menu-icon" />
+                        <div>
+                            <h3 class="menu-name">${folder.name}</h3>
+                            <p class="menu-count">${folder.children.length} items</p>
+                        </div>
+                    </article>
+                </li>
+                <li>
+                    <div class="menu-icon"></div>
+                    <div class="menu-name">folder name</div>
+                    <div class="menu-count">folder in items count</div>
+                </li>
+            </ul>
+            <footer class="menu-search">
+                <form role="search">
+                    <input type="search" placeholder="Search for ...">
+                </form>
+            </footer>
+        </section>
+    </nav>
+
     <footer class="dock">
         <div class="dock-start">SeonJin Kim</div>
         <div class="dock-icons">
             <button class="dock-icon" data-app="finder"><img src="./images/folder.png" alt=""></button>
             <button class="dock-icon" data-app="calculator"><img src="./images/calculator.png" alt=""></button>
             <button class="dock-icon" data-app="weather"><img src="./images/Weather.png" alt=""></button>
-            <a class="dock-icon" data-app="resume" href="https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link" target="_blank" rel="noopener noreferrer"><img src="./images/resume.png" alt=""></a>
-            <a class="dock-icon" data-app="snippets" href="https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link" target="_blank" rel="noopener noreferrer"><img src="./images/Snippets.png" alt=""></a>
+            <a class="dock-icon" data-app="resume"
+                href="https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link"
+                target="_blank" rel="noopener noreferrer"><img src="./images/resume.png" alt=""></a>
+            <a class="dock-icon" data-app="snippets"
+                href="https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link"
+                target="_blank" rel="noopener noreferrer"><img src="./images/Snippets.png" alt=""></a>
         </div>
         <div class="dock-clock"></div>
     </footer>

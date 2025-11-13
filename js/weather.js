@@ -38,16 +38,58 @@ export function initWeather() {
     /** -------------------------
      *  코드 → 아이콘 URL
      *  ------------------------- */
+    // function codeToIconURL(code) {
+    //     const map = {
+    //         clear: "01d",
+    //         clouds: "03d",
+    //         rain: "10d",
+    //         snow: "13d",
+    //     };
+    //     const cond = codeToCondition(code);
+    //     const iconCode = map[cond] || "01d";
+    //     return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+    // }
+
+    /** -------------------------
+     *  코드 → 아이콘 URL (Meteocons, 수정)
+     *  ------------------------- */
     function codeToIconURL(code) {
+        // 실제 CDN 파일명 기준
         const map = {
-            clear: "01d",
-            clouds: "03d",
-            rain: "10d",
-            snow: "13d",
+            0: "clear-day.svg",           // 맑음
+            1: "partly-cloudy-day.svg",   // 대체로 맑음
+            2: "partly-cloudy-day.svg",   // 부분적으로 흐림
+            3: "overcast.svg",            // 흐림
+            45: "fog.svg",                // 안개
+            48: "fog.svg",                // 서리 안개
+            51: "drizzle.svg",            // 이슬비
+            53: "drizzle.svg",
+            55: "drizzle.svg",
+            61: "rain.svg",               // 비
+            63: "rain.svg",
+            65: "rain.svg",               // 폭우
+            71: "snow.svg",               // 눈
+            73: "snow.svg",
+            75: "snow.svg",               // 폭설
+            80: "rain.svg",               // 소나기
+            81: "rain.svg",
+            82: "rain.svg",
+            85: "snow.svg",               // 눈 소나기
+            86: "snow.svg",
+            95: "thunderstorms.svg",      // 천둥번개
+            96: "thunderstorms.svg",      // 천둥번개 강함
+            99: "thunderstorms.svg",      // 천둥번개 극심
         };
-        const cond = codeToCondition(code);
-        const iconCode = map[cond] || "01d";
-        return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+        const fileName = map[code] ||
+            (code >= 60 && code <= 67 ? "rain.svg" :
+                code >= 70 && code <= 77 ? "snow.svg" :
+                    code >= 80 && code <= 86 ? "rain.svg" :
+                        code >= 90 ? "thunderstorms.svg" :
+                            "clear-day.svg");
+
+        if (!map[code]) console.warn(`Weather icon missing for code: ${code}`);
+        return `https://cdn.jsdelivr.net/gh/basmilius/weather-icons/production/fill/all/${fileName}`;
     }
 
     /** -------------------------
@@ -98,33 +140,43 @@ export function initWeather() {
     }
 
     /** -------------------------
-     *  비/눈 오버레이 효과
+     *  비/눈 오버레이 효과 (미구현)
      *  ------------------------- */
-    function applyWeatherOverlay(code) {
-        const content = document.querySelector(".window.weather .content");
-        if (!content) return;
+    // function applyWeatherOverlay(code) {
+    //     const content = document.querySelector(".window.weather .content");
+    //     if (!content) return;
 
-        let overlay = content.querySelector(".weather-overlay");
-        if (!overlay) {
-            overlay = document.createElement("div");
-            overlay.classList.add("weather-overlay");
-            content.appendChild(overlay);
-        }
+    //     let overlay = content.querySelector(".weather-overlay");
+    //     if (!overlay) {
+    //         overlay = document.createElement("div");
+    //         overlay.classList.add("weather-overlay");
+    //         content.appendChild(overlay);
+    //     }
 
-        const cond = codeToCondition(code);
-        overlay.style.transition = "opacity 1s ease";
+    //     overlay.style.transition = "opacity 1s ease";
+    //     overlay.style.pointerEvents = "none";
+    //     overlay.style.position = "absolute";
+    //     overlay.style.top = 0;
+    //     overlay.style.left = 0;
+    //     overlay.style.right = 0;
+    //     overlay.style.bottom = 0;
+    //     overlay.style.zIndex = 5;
 
-        if (cond === "rain") {
-            overlay.style.background = 'url("https://pixabay.com/gifs/rain-animated.gif") center/cover repeat';
-            overlay.style.opacity = 0.3;
-        } else if (cond === "snow") {
-            overlay.style.background = 'url("https://pixabay.com/gifs/snow-animated.gif") center/cover repeat';
-            overlay.style.opacity = 0.4;
-        } else {
-            overlay.style.background = "";
-            overlay.style.opacity = 0;
-        }
-    }
+    //     const cond = codeToCondition(code);
+
+    //     if (cond === "rain") {
+    //         overlay.style.background = 'url("https://i.postimg.cc/7Z0G7hZy/rain-overlay.gif") center/cover repeat';
+    //         overlay.style.opacity = 0.3;
+    //     }
+    //     else if (cond === "snow") {
+    //         overlay.style.background = 'url("https://i.postimg.cc/KjM87F1K/snow-overlay.gif") center/cover repeat';
+    //         overlay.style.opacity = 0.4;
+    //     }
+    //     else { // clear / clouds는 맑음 오버레이
+    //         overlay.style.background = 'url("https://i.postimg.cc/zBq7fY9H/sunny-overlay.png") center/cover no-repeat';
+    //         overlay.style.opacity = 0.15;
+    //     }
+    // }
 
     /** -------------------------
      *  현재 날씨 렌더링
@@ -157,7 +209,7 @@ export function initWeather() {
 
         if (code !== null) {
             setWeatherBackground(code);
-            applyWeatherOverlay(code);
+            // applyWeatherOverlay(code);
         }
     }
 
@@ -228,7 +280,7 @@ export function initWeather() {
                     <img src="${codeToIconURL(codes[i])}" alt="">
                     <div class="temp min">${Math.round(minTemps[i])}°</div>
                     <div class="bar">
-                    <div class="fill" style="width: ${width}%; left:${offset}"></div>
+                    <div class="fill" style="width: ${width}%; left:${offset}%"></div>
                     </div>
                     <div class="temp max">${Math.round(maxTemps[i])}°</div>
                 </div>

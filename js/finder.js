@@ -288,3 +288,11 @@ export function initFinder() {
     window.Finder = { openPath, finderData, getNodeByPath };
     window.dispatchEvent(new Event('FinderReady'));
 }
+
+/*
+11/06 
+finder header의 디테일 수정 - 완
+waether의 overlay 수정하기, summary 자간 조절
+dock-start의 존재 의의 수정하기 - 기능 추가?
+resume, snippets 바로가기 링크 이미지 만들어 추가
+ */

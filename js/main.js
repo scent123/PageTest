@@ -3,12 +3,18 @@ import { initFinder } from "./finder.js";
 import { initCalculator } from "./calculator.js";
 import { initDock } from "./dock.js";
 import { initWeather } from "./weather.js"
+import { initDockMenu } from "./dockMenu.js";
+
+// function setViewportHeight() {
+//     const vh = window.innerHeight * 0.01;
+//     document.documentElement.style.setProperty("--vh", `${vh}px`);
+// }
+// window.addEventListener('resize', setViewportHeight);
+// window.addEventListener('orientationchange', setViewportHeight);
+// setViewportHeight();
 
 // random background images
 function initRandomBackground() {
-    const bgImage = document.querySelector(".background-image");
-    if (!bgImage) return;
-
     const images = [
         "./images/background_1.jpg",
         "./images/background_2.jpg",
@@ -19,7 +25,11 @@ function initRandomBackground() {
     const random = Math.floor(Math.random() * images.length);
     const selected = images[random];
 
-    bgImage.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${selected}')`;
+    document.body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${selected}')`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgorundPosiiton = 'center';
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundAttachment = 'fixed';
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -27,17 +37,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
     try {
         initRandomBackground();
-
         initWindowControls();
-
         initAppLauncher();
-
         initFinder();
-
-        initCalculator();
-
+        initDockMenu();
         initDock();
-
+        initCalculator();
         initWeather();
 
         // console.log('%c[App] All modules initialized successfully.', 'color:#22c55e; font-weight:bold;');
@@ -46,3 +51,9 @@ window.addEventListener('DOMContentLoaded', () => {
         console.error('[App Init Error]', err);
     }
 });
+
+document.addEventListener('touchend', (event) => {
+    const now = Date.now();
+    if (now - (window.lastTouchEnd || 0) <= 300) event.preventDefault();
+    window.lastTouchEnd = now;
+}, false);
