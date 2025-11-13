@@ -1,19 +1,20 @@
-html {
-    font-size: 16px;
-}
-
-body {
+html, body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     font-size: 1rem;
-    width: 100vw;
-    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
     overflow: hidden;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none
+    user-select: none;
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    /* background-image: url('../images/background_1.jpg');
+    background-size: center;
+    background-repeat: no-repeat; */
 }
 
 
@@ -25,7 +26,7 @@ body {
     border-radius: 1.5em;
     z-index: 1;
     position: absolute;
-    top: 10%;
+    top: 2%;
     left: 20%;
     transition: none;
     display: none;
@@ -39,6 +40,10 @@ body {
 .window.active {
     display: block;
     /* transition: all 0.8s ease; */
+}
+
+.window.calculator.active {
+    display: flex;
 }
 
 .window.weather.active {
@@ -222,7 +227,7 @@ body {
 }
 
 /* -----------------finder content-------------------- */
-.content {
+.window.finder .content {
     display: flex;
     height: calc(100% - 3.125rem);
     overflow-x: auto;
@@ -230,7 +235,7 @@ body {
     white-space: nowrap;
 }
 
-.finder-columns {
+.window.finder .finder-columns {
     flex: 0 0 auto;
     min-width: 12rem;
     list-style: none;
@@ -239,7 +244,7 @@ body {
     background: transparent;
 }
 
-.folder {
+.window.finder .folder {
     height: 2.25rem;
     cursor: pointer;
     padding: 0.5em;
@@ -248,33 +253,33 @@ body {
     align-items: center;
 }
 
-.list-picture {
+.window.finder .list-picture {
     width: 1.5rem;
     height: 1.5rem;
     margin-right: 0.5em;
 }
 
-.folder.selected {
+.window.finder .folder.selected {
     background-color: #007aff;
     color: #fff;
 }
 
 /* -----------------finder preview-------------------- */
-.finder-preview {
+.window.finder .finder-preview {
     min-width: 25rem;
     flex: 1 1;
     width: 16.25rem;
     border-right: none;
 }
 
-.preview {
+.window.finder .preview {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 2em;
 }
 
-.preview>img {
+.window.finder .preview>img {
     max-width: 16rem;
     max-height: 12rem;
     margin-bottom: 2em;
@@ -296,21 +301,21 @@ body {
     cursor: pointer;
 }
 
-.property-container>.property {
+.window.finder .property-container>.property {
     display: flex;
     margin-left: -1em;
     margin-bottom: 0.8em;
     line-height: 1.5em;
 }
 
-.property>.key {
+.window.finder .property>.key {
     max-width: 4rem;
     color: #999;
     margin-right: 0.5em;
     text-align: right;
 }
 
-.property>.value {
+.window.finder .property>.value {
     flex-shrink: 1;
 }
 
@@ -328,6 +333,7 @@ body {
     overflow: hidden;
     user-select: none;
     position: absolute;
+    flex-direction: column;
 }
 
 .window.calculator .header {
@@ -348,15 +354,26 @@ body {
 
 /* 계산기 내부 */
 .calculator .content {
+    width: 100%;
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+    /* align-content: center; */
+    /* align-items: center; */
     height: 100%;
+    position: relative;
+}
+
+.calculator .display-wrapper {
+    position: relative;
+    flex: 3;
+    width: 100%;
+    overflow: hidden;
 }
 
 .calculator .display {
     position: relative;
-    width: 100%;
-    height: 4.5rem;
+    height: 100%;
     background-color: #1E1E1E;
     color: #fff;
     box-sizing: border-box;
@@ -368,7 +385,7 @@ body {
 }
 
 .calculator .display-inner {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     align-items: flex-end;
     text-align: right;
@@ -398,10 +415,12 @@ body {
 
 .calculator .display-blur {
     position: absolute;
-    top: 3rem;
+    top: 0;
+    left: 0;
+    right: 0;
     bottom: 0;
-    width: 100%;
-    height: 4.5rem;
+    /* width: 100%; */
+    /* height: 100%; */
     pointer-events: none;
     z-index: 10;
 }
@@ -412,7 +431,7 @@ body {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 0.5rem;
+    width: 1rem;
     pointer-events: none;
     z-index: 2;
 }
@@ -429,29 +448,27 @@ body {
     background: linear-gradient(to left, rgba(30, 30, 30, 0.95), rgba(30, 30, 30, 0.3), transparent);
 }
 
-/* JS에서 추가할 클래스에 따라 보이게 함 */
-.calculator .display.show-left::before {
-    opacity: 1;
-}
-
-.calculator .display.show-right::after {
-    opacity: 1;
-}
-
 .calculator .content .buttons {
+    flex: 7;
     display: grid;
-    /* grid-template-columns: repeat(4, 1fr); */
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    align-items: center;
-    justify-items: center;
-    height: calc(100% - 7.5rem);
+    max-width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 0.5rem;
+    padding: 0.5rem;
     background: #1E1E1E;
     box-sizing: border-box;
+    align-items: center;
+    justify-items: center;
+    /* height: calc(100% - 7.5rem); */
 }
 
 .calculator .content .buttons .btn {
     width: 3rem;
     height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     aspect-ratio: 1 / 1;
     color: #fff;
     font-size: 1.5rem;
@@ -526,6 +543,17 @@ body {
     padding: 1.5rem;
 }
 
+.weather-current img {
+    width: 80px;
+    height: 80px;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.weather-current img:hover {
+    transform: scale(1.05);
+}
+
 .weather-current .location {
     font-size: 1.2rem;
 }
@@ -544,15 +572,17 @@ body {
 
 .weather-current .hi-low {
     font-size: 0.9rem;
-    opacity: 0.8;
+    /* opacity: 0.8; */
 }
 
 /* 시간별 예보 */
 .weather-hourly {
     margin: 0.5rem 1rem;
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(0.5rem);
     box-sizing: border-box;
     border-radius: 1rem;
+    backdrop-filter: blur(1rem);
     padding: 1rem;
 }
 
@@ -617,7 +647,8 @@ body {
     padding: 0.5rem 1rem;
     display: flex;
     flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(0.5rem);
     border-radius: 1rem;
 }
 
@@ -689,22 +720,24 @@ body {
     transition: all 0.3s ease;
 }
 
-/* -----------------main-------------------- */
-main {
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-}
-
 .background-image {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100dvw;
+    height: 100dvh;
     background-size: cover;
     background-position: center;
+}
+
+/* -----------------main-------------------- */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .app-grid {
@@ -761,19 +794,19 @@ main {
 }
 
 /* -----------------dock-------------------- */
-
 .dock {
-    display: flex;
+    position: absolute;
+    bottom: 0;
     width: 100vw;
     height: 5rem;
+    display: flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(8px);
     padding: 0.5em 1.5em;
     border-radius: 1rem;
-    position: fixed;
-    bottom: 0;
     box-sizing: border-box;
+    z-index: 100000;
 }
 
 .dock-start {
@@ -824,6 +857,104 @@ main {
     text-shadow: 0px 0.25em 0.25em rgba(0, 0, 0, 0.5);
 }
 
+/* -------------------
+ * dock-menu
+-------------------- */
+.dock-menu {
+    position: fixed;
+    bottom: 6.5rem;
+    left: 1rem;
+    width: 20rem;
+    height: 20rem;
+    max-height: 70vh;
+    background: rgba(20, 20, 20, 0.95);
+    color: #fff;
+    border-radius: 1rem;
+    overflow-y: auto;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.2),
+        inset 0 0 2px 1px rgba(255, 255, 255, 0.25),
+        0 16px 48px rgba(0, 0, 0, 0.35);
+    display: none;
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+}
+
+.dock-menu.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.menu-content {
+    padding: 1rem;
+}
+
+.menu-header {
+    font-weight: 600;
+    font-size: 1.2rem;
+    /* margin-bottom: 0.4rem; */
+    margin: 1rem;
+    color: #aaa;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 0.35rem 0.5rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-item.indented {
+    padding-left: 1.6rem;
+    opacity: 0.8;
+}
+
+.menu-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.menu-name {
+    flex-grow: 1;
+}
+
+.menu-count {
+    font-size: 0.75rem;
+    color: #888;
+}
+
+.menu-search {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    color: #fff;
+}
+
+.menu-search-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.2rem;
+}
+
+.menu-search input {
+    color: #fff;
+    appearance: none;
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 1rem;
+    border: none;
+    background: rgba(20, 20, 20, 0.95);
+}
 
 /* -------------------------------
 * Tablet
@@ -834,21 +965,24 @@ main {
     }
 }
 
-/* -------------------------------
-* mobile
--------------------------------- */
+/* -------------------------------------------------------------------------
+* ---------------------------------mobile
+-------------------------------------------------------------------------- */
 @media (max-width: 767px) {
 
     /* -------------------------------
      * Window
     -------------------------------- */
     .window {
-        width: 100vw;
-        height: calc(100vh - 5rem);
         top: 0;
         left: 0;
         border-radius: 0 !important;
         box-shadow: none !important;
+    }
+
+    .window.finder {
+        width: 100vw;
+        height: calc(100dvh - 4rem);
     }
 
     .window.finder .content {
@@ -876,21 +1010,21 @@ main {
     -------------------------------- */
     .window.calculator {
         min-width: 100vw;
-        max-width: 100vw;
-        max-height: calc(100vh - 5rem);
+        max-height: calc(100dvh - 4rem);
+        height: 100dvh !important;
     }
 
     .window.calculator .content {
-        height: calc(100% - 3rem);
+        flex: 1;
     }
 
-    .window.calculator .display-blur {
-        height: 15rem;
+    /* .window.calculator .display-blur {
+        height: 30%;
     }
 
     .window.calculator .display {
-        height: 15rem;
-    }
+        height: 30%;
+    } */
 
     .window.calculator .display-inner {
         justify-content: center;
@@ -901,7 +1035,7 @@ main {
     }
 
     .window.calculator .content .buttons {
-        height: calc(100% - 15rem);
+        height: 100%;
     }
 
     .window.calculator .buttons .btn {
@@ -914,7 +1048,7 @@ main {
     -------------------------------- */
     .window.weather {
         width: 100%;
-        height: calc(100% - 5rem);
+        height: calc(100% - 4rem);
     }
 
     /* -------------------------------
@@ -930,6 +1064,7 @@ main {
     .dock {
         z-index: 10000;
         border-radius: 0;
+        height: 4rem;
     }
 
     .dock-start {
