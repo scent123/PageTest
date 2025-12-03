@@ -1,7 +1,3 @@
-// weather.js
-// 날씨 앱 기능 모듈
-// export: initWeather()
-
 export function initWeather() {
 
     /** -------------------------
@@ -34,21 +30,6 @@ export function initWeather() {
         if ([71, 73, 75].includes(code)) return "snow";
         return "clear";
     }
-
-    /** -------------------------
-     *  코드 → 아이콘 URL
-     *  ------------------------- */
-    // function codeToIconURL(code) {
-    //     const map = {
-    //         clear: "01d",
-    //         clouds: "03d",
-    //         rain: "10d",
-    //         snow: "13d",
-    //     };
-    //     const cond = codeToCondition(code);
-    //     const iconCode = map[cond] || "01d";
-    //     return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-    // }
 
     /** -------------------------
      *  코드 → 아이콘 URL (Meteocons, 수정)
@@ -136,7 +117,7 @@ export function initWeather() {
         };
 
         weatherWindow.style.background = gradients[cond]?.[time] || gradients.clear.day;
-        weatherWindow.style.transition = "background 1.5s ease";
+        // weatherWindow.style.transition = "background 1.5s ease";
     }
 
     /** -------------------------
@@ -220,9 +201,28 @@ export function initWeather() {
         const el = document.querySelector(".weather-hourly .hourly-scroll");
         if (!el) return;
 
-        const times = data.hourly.time.slice(0, 12);
-        const temps = data.hourly.temperature_2m.slice(0, 12);
-        const codes = data.hourly.weather_code.slice(0, 12);
+        const now = new Date();
+        const currentHourISO = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+            now.getHours()
+        ).toString();
+
+        let startIndex = data.hourly.time.indexOf(currentHourISO);
+
+        if (startIndex === -1) {
+            startIndex = data.hourly.time.findIndex(t => {
+                const th = new Date(t).getHours();
+                return th === now.getHours();
+            });
+        }
+
+        if (startIndex < 0) startIndex = 0;
+
+        const times = data.hourly.time.slice(startIndex, startIndex + 12);
+        const temps = data.hourly.temperature_2m.slice(startIndex, startIndex + 12);
+        const codes = data.hourly.weather_code.slice(startIndex, startIndex + 12);
 
         el.innerHTML = times.map((t, i) => {
             const hour = new Date(t).getHours();

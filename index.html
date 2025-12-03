@@ -3,16 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/style.css">
     <title>SeonJin Kim</title>
 </head>
 
 <body>
-    <!-- <div class="background-image"></div> -->
-
-    <div class="window finder">
+    <div class="window finder" data-app="finder">
         <div class="header">
             <div class="remote">
                 <div class="buttons close"></div>
@@ -163,34 +161,13 @@
         </section>
     </main>
 
-    <nav class="dock-menu" aria-label="Start Menu">
-        <section class="dock-menu-overlay">
-            <header class="menu-header">
-                <h2>Recent Items</h2>
-            </header>
-            <ul class="menu-list">
-                <li>
-                    <article class="folder-entry" data-folder="${folder.name}">
-                        <img src="./images/folder.png" alt="${folder.name}" class="menu-icon" />
-                        <div>
-                            <h3 class="menu-name">${folder.name}</h3>
-                            <p class="menu-count">${folder.children.length} items</p>
-                        </div>
-                    </article>
-                </li>
-                <li>
-                    <div class="menu-icon"></div>
-                    <div class="menu-name">folder name</div>
-                    <div class="menu-count">folder in items count</div>
-                </li>
-            </ul>
-            <footer class="menu-search">
-                <form role="search">
-                    <input type="search" placeholder="Search for ...">
-                </form>
-            </footer>
-        </section>
-    </nav>
+<nav class="dock-menu" aria-label="Start Menu">
+    <div class="dock-menu-overlay">
+        <h2 class="menu-header">Recent Items</h2>
+        <ul class="menu-list"></ul>
+    </div>
+    <input type="search" class="menu-search" placeholder="Search for ..."/>
+</nav>
 
     <footer class="dock">
         <div class="dock-start">SeonJin Kim</div>

@@ -1,6 +1,3 @@
-// calculator.js
-// export: initCalculator()
-
 export function initCalculator() {
     const calcWindow = document.querySelector('.window.calculator');
     if (!calcWindow) return;
@@ -198,6 +195,10 @@ export function initCalculator() {
 
     /* ----- 키보드 바인딩 ----- */
     document.addEventListener('keydown', (e) => {
+
+        const active = document.activeElement;
+        if (active && active.closest('.dock-menu')) return;
+
         // 숫자
         if (e.key >= '0' && e.key <= '9') { onNumber(e.key); return; }
         if (e.key === '.') { onNumber('.'); return; }

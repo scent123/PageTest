@@ -1,9 +1,12 @@
-// dock.js
-// Dock 관련 기능 (아이콘 클릭, Finder/Calculator/Weather 실행, 시계 업데이트)
-// export: initDock()
+/**
+ * dock.js (A안 + Finder 특수 로직 반영)
+ */
 
 export function initDock() {
-    // function shouldShowClock() {}
+
+    /* -----------------------------------------
+     *  1) 시계 기능 (그대로 유지)
+     * ----------------------------------------- */
 
     function getCurrentTime() {
         const now = new Date();
@@ -17,11 +20,11 @@ export function initDock() {
 
         const clockEl = document.querySelector('.dock-clock');
         if (clockEl) {
-            clockEl.innerText = `${month}월 ${date}일 (${day}) ${hours}:${minutes}:${seconds}`;
+            clockEl.innerText =
+                `${month}월 ${date}일 (${day}) ${hours}:${minutes}:${seconds}`;
         }
     }
 
-    // 시계 작동
     function startClock() {
         getCurrentTime();
         return setInterval(getCurrentTime, 1000);
@@ -29,12 +32,10 @@ export function initDock() {
 
     let clockInterval = null;
 
-    // 창의 너비가 768이 넘으면 시계가 startClock 함수 작동
     function handleClockResponsive() {
         if (window.innerWidth >= 768) {
             if (!clockInterval) clockInterval = startClock();
-        }
-        else {
+        } else {
             if (clockInterval) {
                 clearInterval(clockInterval);
                 clockInterval = null;
@@ -42,82 +43,65 @@ export function initDock() {
         }
     }
 
-    // 창 크기가 변해도 함수를 읽을수 있도록
     window.addEventListener('resize', handleClockResponsive);
     handleClockResponsive();
 
-    function openApp(app) {
-        const targetWindow = document.querySelector(`.window.${app}`);
-        if (!targetWindow) return;
-
-        targetWindow.classList.add('active');
-        targetWindow.style.opacity = 0;
-        targetWindow.style.transform = 'scale(0.9)';
-
-        const dockIcon = document.querySelector(`.dock-icon[data-app="${app}"]`);
-        if (dockIcon) dockIcon.classList.add('active');
-
-        setTimeout(() => {
-            targetWindow.style.opacity = 1;
-            targetWindow.style.transform = 'scale(1)';
-        }, 20);
-    }
 
 
-    function initDockAfterFinder() {
+    /* -----------------------------------------
+     *  2) Dock 클릭 → Finder 특수 로직 + 나머지는 AppCore
+     * ----------------------------------------- */
+
+    function initDockClickHandlers() {
         const dockIcons = document.querySelectorAll('.dock-icon');
 
         dockIcons.forEach(icon => {
-            icon.addEventListener('click', e => {
+            icon.addEventListener('click', (e) => {
                 e.preventDefault();
+
                 const app = icon.dataset.app;
+                if (!app) return;
 
-                if (app === 'finder') {
-                    const finderWindow = document.querySelector('.window.finder');
+                /* ★ Finder 전용 처리 */
+                if (app === "finder") {
 
-                    if (!finderWindow || !finderWindow.classList.contains('active')) {
-                        openApp('finder');
+                    const finderWin = document.querySelector(".window.finder");
+
+                    if (!finderWin) return;
+
+                    const isOpen = finderWin.classList.contains("active");
+                    const minimized = finderWin.classList.contains("is-minimizing");
+
+                    if (isOpen || minimized) {
+                        // ★ 이미 열려 있으면 경로 변경 없이 그대로 포커스(restore)
+                        window.WindowControls.openApp("finder");
+                        return;
                     }
 
-                    const openWhenReady = () => {
-                        if (window.Finder && typeof window.Finder.openFinderWindow === 'function') {
-                            const finderApp = document.querySelector('.app[data-app="finder"]');
-                            if (finderApp) {
-                                window.Finder.openFinderWindow(finderApp);
-
-                                const lastPath = window.Finder.currentPath || ['Users', 'Seonjin', 'Desktop'];
-                                window.Finder.openPath(lastPath);
-                            }
-                        }
-                        else {
-                            setTimeout(() => openWhenReady, 100);
-                        }
-                    }
+                    // ★ 아니면 Desktop 기본 경로로 열기
+                    const defaultPath = ["Users", "Seonjin", "Desktop"];
+                    window.WindowControls.openApp("finder", { path: defaultPath });
+                    return;
                 }
 
-                else if (app === 'calculator') {
-                    openApp('calculator');
-                }
 
-                else if (app === 'weather') {
-                    openApp('weather');
-                }
-
-                else if (app === 'resume') {
-                    // TODO: Notion 링크 등 연결 가능
-                }
-
-                else if (app === 'snippets') {
-                    // TODO: 링크 연결 가능
-                    // window.open('https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link')
+                /* ★ 일반 앱은 그냥 openApp */
+                if (window.WindowControls?.openApp) {
+                    window.WindowControls.openApp(app);
                 }
             });
         });
     }
 
+
+
+    /* -----------------------------------------
+     *  3) FinderReady 이후 Dock 초기화
+     * ----------------------------------------- */
+
     if (window.Finder) {
-        initDockAfterFinder();
+        initDockClickHandlers();
     } else {
-        window.addEventListener('FinderReady', initDockAfterFinder, { once: true });
+        window.addEventListener('FinderReady', initDockClickHandlers, { once: true });
     }
 }

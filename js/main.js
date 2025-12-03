@@ -1,25 +1,20 @@
-import { initAppLauncher, initWindowControls } from "./windowControls.js";
+import { initWindowControls } from "./windowControls.js";
 import { initFinder } from "./finder.js";
 import { initCalculator } from "./calculator.js";
 import { initDock } from "./dock.js";
 import { initWeather } from "./weather.js"
 import { initDockMenu } from "./dockMenu.js";
 
-// function setViewportHeight() {
-//     const vh = window.innerHeight * 0.01;
-//     document.documentElement.style.setProperty("--vh", `${vh}px`);
-// }
-// window.addEventListener('resize', setViewportHeight);
-// window.addEventListener('orientationchange', setViewportHeight);
-// setViewportHeight();
-
-// random background images
+// 배경 이미지 랜덤 변경
 function initRandomBackground() {
     const images = [
-        "./images/background_1.jpg",
-        "./images/background_2.jpg",
-        "./images/background_3.jpg",
-        "./images/background_4.jpg",
+        "./images/backgrounds/background_1.jpg",
+        "./images/backgrounds/background_2.jpg",
+        "./images/backgrounds/background_3.jpg",
+        "./images/backgrounds/background_4.jpg",
+        "./images/backgrounds/background_5.jpg",
+        "./images/backgrounds/background_6.jpg",
+        "./images/backgrounds/background_7.jpg",
     ];
 
     const random = Math.floor(Math.random() * images.length);
@@ -38,7 +33,6 @@ window.addEventListener('DOMContentLoaded', () => {
     try {
         initRandomBackground();
         initWindowControls();
-        initAppLauncher();
         initFinder();
         initDockMenu();
         initDock();
@@ -51,9 +45,3 @@ window.addEventListener('DOMContentLoaded', () => {
         console.error('[App Init Error]', err);
     }
 });
-
-document.addEventListener('touchend', (event) => {
-    const now = Date.now();
-    if (now - (window.lastTouchEnd || 0) <= 300) event.preventDefault();
-    window.lastTouchEnd = now;
-}, false);

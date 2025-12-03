@@ -1,4 +1,16 @@
-html, body {
+@import url('https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.1/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css');
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+
+:root {
+    --finder-color: light-dark(#fff, #1e1e1e);
+    --finder-line: light-dark(#e6e6e6, rgb(52, 52, 52));
+    --finder-text: light-dark(#000, #fff);
+    /* --main-color: light-dark(rgba(246, 246, 246, 0.36), ); */
+    --dock-color: light-dark(rgba(255, 255, 255, 0.2), rgba(74, 74, 74, 0.39))
+}
+
+html,
+body {
     display: flex;
     flex-direction: column;
     font-size: 1rem;
@@ -12,9 +24,7 @@ html, body {
     touch-action: manipulation;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
-    /* background-image: url('../images/background_1.jpg');
-    background-size: center;
-    background-repeat: no-repeat; */
+    font-family: 'Wanted Sans Variable', 'nanumgothic', sans-serif;
 }
 
 
@@ -31,15 +41,18 @@ html, body {
     transition: none;
     display: none;
     overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2),
+        inset 0 0 2px 1px rgba(255, 255, 255, 0.25),
+        0 16px 48px rgba(0, 0, 0, 0.35);
+    color: var(--finder-text);
 }
 
 .window.finder {
-    background-color: #fff;
+    background-color: var(--finder-color);
 }
 
 .window.active {
     display: block;
-    /* transition: all 0.8s ease; */
 }
 
 .window.calculator.active {
@@ -48,6 +61,8 @@ html, body {
 
 .window.weather.active {
     display: flex;
+    /* transition: all 0.4s ease; */
+
 }
 
 .window.animating {
@@ -58,7 +73,8 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    border-bottom: 2px solid #E6E6E6;
+    /* border-bottom: 2px solid #E6E6E6; */
+    border-bottom: 2px solid var(--finder-line);
 }
 
 .window.is-closing {
@@ -86,51 +102,61 @@ html, body {
     justify-content: space-between;
 }
 
-.remote>.buttons {
+.window .remote>.buttons {
     width: 1rem;
     height: 1rem;
     border: 0.5px solid rgba(0, 0, 0, 0.1);
     border-radius: 100%;
     box-sizing: border-box;
     position: relative;
+    background-color: #656565;
+    cursor: pointer;
     /* margin-left: 0.5em; */
 }
 
 .buttons.close {
-    background-color: #ff736a;
-    cursor: pointer;
+    /* background-color: #ff736a; */
+    --btn-color: #ff736f;
 }
 
 .buttons.minimize {
-    background-color: #FEBC2E;
-    cursor: pointer;
+    /* background-color: #FEBC2E; */
+    --btn-color: #FEBC2E;
 }
 
 .buttons.zoom {
-    background-color: #19C332;
-    cursor: pointer;
+    /* background-color: #19C332; */
+    --btn-color: #19C332;
+}
+
+.window.focused .remote>.buttons {
+    background-color: var(--btn-color);
+}
+
+.remote:hover>.buttons {
+    background-color: var(--btn-color);
 }
 
 .remote:hover .buttons.close::after {
     content: url('../images/close.png');
     position: absolute;
-    bottom: 0%;
+    bottom: 5%;
     left: 27%;
 }
 
 .remote:hover .buttons.minimize::after {
     content: url('../images/minimize.png');
     position: absolute;
-    bottom: 17%;
-    left: 17%;
+    bottom: 26%;
+    left: 19%;
 }
 
 
 .remote:hover .buttons.zoom::after {
     content: url('../images/zoom.png');
     position: absolute;
-    bottom: 12%;
-    left: 30%;
+    bottom: 20%;
+    left: 33%;
     scale: 1.2;
 }
 
@@ -223,7 +249,8 @@ html, body {
     background-size: contain;
     /* background-image: url('../images/folder.png'); */
     background-repeat: no-repeat;
-    padding-right: 0.5em;
+    background-position: center;
+    margin-right: 0.5em;
 }
 
 /* -----------------finder content-------------------- */
@@ -240,8 +267,10 @@ html, body {
     min-width: 12rem;
     list-style: none;
     margin: 0;
-    border-right: 1px solid #dcdcdc;
+    /* border-right: 1px solid #dcdcdc; */
+    border-right: 1px solid var(--finder-line);
     background: transparent;
+    overflow-y: scroll;
 }
 
 .window.finder .folder {
@@ -251,6 +280,7 @@ html, body {
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .window.finder .list-picture {
@@ -264,12 +294,24 @@ html, body {
     color: #fff;
 }
 
+.window.finder .folder .column-arrow {
+    position: absolute;
+    right: 0.5rem;
+    color: rgb(132, 132, 132);
+    font-size: 0.8rem;
+}
+
+.window.finder .folder.selected .column-arrow {
+    color: rgba(255, 255, 255, 0.8)
+}
+
 /* -----------------finder preview-------------------- */
 .window.finder .finder-preview {
     min-width: 25rem;
     flex: 1 1;
     width: 16.25rem;
     border-right: none;
+    overflow-y: scroll;
 }
 
 .window.finder .preview {
@@ -283,11 +325,82 @@ html, body {
     max-width: 16rem;
     max-height: 12rem;
     margin-bottom: 2em;
+    border: 0.5px inset rgba(255, 255, 255, 0.4);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(79, 79, 79, 0.6);
 }
+
 
 .window.finder .preview>.property-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    /* align-items: flex-start; */
+    width: 100%;
+    white-space: break-spaces;
+}
+
+/* ==== Quick Look Overlay ==== */
+.quicklook-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    z-index: 99999;
+    color: #fff;
+    height: calc(100dvh - 5rem);
+}
+
+.quicklook-container {
+    min-width: 20vw;
+    max-width: 90vw;
+    max-height: 90vh;
+    padding: 1rem;
+    background: rgba(90, 90, 90, 0.95);
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 0.5px outset rgba(255, 255, 255, 0.8);
+}
+
+.quicklook-header {
+    height: 100%;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.quicklook-header .quicklook-name {
+    font-size: 1.2rem;
+}
+
+/* 닫기 버튼 */
+.quicklook-close {
+    position: absolute;
+    right: 0;
+    font-size: 1.4rem;
+    color: white;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.quicklook-close:hover {
+    opacity: 1;
+}
+
+/* .quicklook-header .quicklook-name {} */
+
+.quicklook-container img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 0.5rem;
 }
 
 .window.finder .preview-closeBtn {
@@ -303,13 +416,13 @@ html, body {
 
 .window.finder .property-container>.property {
     display: flex;
-    margin-left: -1em;
+    /* margin-left: -1em; */
     margin-bottom: 0.8em;
     line-height: 1.5em;
 }
 
 .window.finder .property>.key {
-    max-width: 4rem;
+    min-width: 5rem;
     color: #999;
     margin-right: 0.5em;
     text-align: right;
@@ -317,6 +430,72 @@ html, body {
 
 .window.finder .property>.value {
     flex-shrink: 1;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.35rem;
+}
+
+.skill-item {
+    display: inline-block;
+    padding: 0.5rem 0.7rem;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    border-radius: 1rem;
+    background: light-dark(#f0f0f0, #2b2b2b);
+    border: 1px solid light-dark(#dcdcdc, #3c3c3c);
+    color: light-dark(#000, #e6e6e6);
+    cursor: pointer;
+    margin-right: 0.35rem;
+    margin-bottom: 0.35rem;
+    white-space: nowrap;
+}
+
+.skill-tooltip {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, .85);
+    color: #fff;
+    text-align: center;
+    border-radius: 1rem;
+    font-size: 1rem;
+    white-space: nowrap;
+    z-index: 999999;
+    pointer-events: none;
+    backdrop-filter: blur(3px);
+}
+
+.skill-tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border: 0.5rem solid transparent;
+    border-top-color: rgba(0, 0, 0, .85);
+    border-bottom: 0;
+    margin-left: -0.5rem;
+    margin-bottom: -0.5rem;
+    border-radius: 0 0 0 0.5rem;
+}
+
+.window.finder .preview .property-container .move-link {
+    width: 5rem;
+    height: 1.5rem;
+    /* border: 1px solid black; */
+    font-size: 1rem;
+    background-color: rgba(110, 110, 110, 0.2);
+    border-radius: 0.5rem;
+    text-align: center;
+    line-height: 150%;
+    color: #000;
+    cursor: pointer;
+    margin-left: 50%;
+    transform: translateX(-50%);
 }
 
 /* -----------------Calculator-------------------- */
@@ -560,7 +739,7 @@ html, body {
 
 .weather-current .temp {
     font-size: 4rem;
-    font-weight: 700;
+    font-weight: 500;
     margin: 0.3rem 0;
 }
 
@@ -865,12 +1044,13 @@ main {
     bottom: 6.5rem;
     left: 1rem;
     width: 20rem;
-    height: 20rem;
-    max-height: 70vh;
+    max-height: 39rem;
+    /* min-height: 75vh; */
+    /* height: 58dvh; */
     background: rgba(20, 20, 20, 0.95);
     color: #fff;
     border-radius: 1rem;
-    overflow-y: auto;
+    overflow: auto;
     box-shadow:
         0 0 0 1px rgba(0, 0, 0, 0.2),
         inset 0 0 2px 1px rgba(255, 255, 255, 0.25),
@@ -881,47 +1061,97 @@ main {
 }
 
 .dock-menu.active {
-    display: block;
+    display: flex;
     animation: fadeIn 0.3s ease;
+    flex-direction: column;
 }
 
-.menu-content {
-    padding: 1rem;
+.dock-menu-overlay {
+    /* height: 100%; */
+    flex: 1;
 }
 
 .menu-header {
     font-weight: 600;
     font-size: 1.2rem;
     /* margin-bottom: 0.4rem; */
-    margin: 1rem;
+    padding: 1rem;
     color: #aaa;
 }
 
-.menu-item {
+.menu-list {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.menu-item {
+    width: 100%;
     padding: 0.35rem 0.5rem;
+    margin-bottom: 0.5rem;
     border-radius: 0.4rem;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
-.menu-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.menu-item.indented {
-    padding-left: 1.6rem;
-    opacity: 0.8;
+.folder-entry {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .menu-icon {
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 2em;
+    height: 2rem;
     margin-right: 0.5rem;
 }
 
+.menu-text {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu-link .menu-text {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.menu-item.preview-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    border: none;
+    background: none;
+    padding-left: 1.5rem;
+    padding-bottom: 0.25rem;
+    box-sizing: border-box;
+}
+
+.menu-link {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+}
+
+.menu-list li:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+
 .menu-name {
-    flex-grow: 1;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.menu-root {
+    font-size: 0.8rem;
+    color: #aaa;
+    text-align: left;
 }
 
 .menu-count {
@@ -930,30 +1160,27 @@ main {
 }
 
 .menu-search {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: 0.5rem;
-    padding-top: 0.5rem;
-    color: #fff;
-}
-
-.menu-search-input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #fff;
-    font-size: 0.9rem;
-    padding: 0.4rem 0.2rem;
-}
-
-.menu-search input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     color: #fff;
     appearance: none;
     width: 100%;
-    font-size: 1.2rem;
+    font-size: 1rem;
     padding: 1rem;
     border: none;
     background: rgba(20, 20, 20, 0.95);
+    position: sticky;
+    bottom: 0;
+    outline: none;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.2),
+        inset 0 0 2px 1px rgba(255, 255, 255, 0.25),
+        0 16px 48px rgba(0, 0, 0, 0.35);
+}
+
+.no-results {
+    padding-left: 1rem;
 }
 
 /* -------------------------------
@@ -980,6 +1207,23 @@ main {
         box-shadow: none !important;
     }
 
+    .window .header .remote .minimize {
+        background-color: #656565;
+        cursor: default;
+    }
+
+    .window .header .remote .zoom {
+        background-color: #656565;
+        cursor: default;
+    }
+
+    .window .header .remote ::after {
+        display: none !important;
+    }
+
+    /* -------------------------------
+     * finder
+    -------------------------------- */
     .window.finder {
         width: 100vw;
         height: calc(100dvh - 4rem);
@@ -1073,6 +1317,12 @@ main {
 
     .dock-icon {
         display: none;
+    }
+
+    .dock-icon.active::after {
+        width: 5rem;
+        height: 0.25rem;
+        top: 110%;
     }
 
     .dock-clock {
