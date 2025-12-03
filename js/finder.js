@@ -81,7 +81,7 @@ export function initFinder() {
                                     { name: "VSCode", type: "preview", image: './images/tools/tool-vscode.png', level: '능숙하게 사용', explain: 'HTML, CSS, JavaScript, Python 등 다양한 언어를 학습할 때 주력으로 사용. 웹 개발 기초를 다지며 확장 프로그램 활용법을 익혔습니다.' },
                                     { name: "InteliJ", type: "preview", image: './images/tools/tool-intellij.png', level: '사용 경험 있음', explain: 'Java 프로그래밍 기초를 배우는 과정에서 접했습니다. IDE 환경에 대한 이해도를 높이는 계기가 되었습니다.' },
                                     { name: "eclipse", type: "preview", image: './images/tools/tool-eclipse.png', level: '사용 경험 있음', explain: 'JSP, Oracle DB, Spring 프레임워크 등 백엔드 기술 스택을 학습하며 사용해 보았습니다. 개발 환경 설정 경험이 있습니다.' },
-                                    { name: "android studio", type: "preview", image: './images/tools/tool-android studio.png', level: '사용 경험 있음', explain: 'XML 레이아웃과 Java를 활용하여 안드로이드 앱의 기본 구조를 만들어보는 실습을 진행했습니다.' },
+                                    { name: "android studio", type: "preview", image: './images/tools/tool-android-studio.png', level: '사용 경험 있음', explain: 'XML 레이아웃과 Java를 활용하여 안드로이드 앱의 기본 구조를 만들어보는 실습을 진행했습니다.' },
                                     { name: "Xcode", type: "preview", image: './images/tools/tool-xcode.png', level: '사용 경험 있음', explain: 'Mac 환경에서 C, C++ 등 기초 프로그래밍 언어의 컴파일 및 실행 과정을 학습하며 사용법을 익혔습니다.' },
                                     { name: "Photoshop", type: "preview", image: './images/tools/tool-photo.png', level: '능숙하게 사용', explain: '컴퓨터그래픽스 운용기능사 자격증 취득 과정에서 이미지 편집 및 보정 기술을 배웠습니다.' },
                                     { name: "Illustrator", type: "preview", image: './images/tools/tool-illust.png', level: '능숙하게 사용', explain: '웹디자인/컴퓨터그래픽스 자격증 취득 시 활용했습니다. 벡터 이미지 제작의 기초를 다졌습니다.' },
