@@ -1,0 +1,131 @@
+#popup {
+  position: absolute;
+  top: 0px;
+  transform: translateY(-200%);
+  z-index: 1000;
+  display: block;
+}
+
+#popup .pop_con {
+  background-color: #e6e6e6;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  padding: 0 15px 15px 15px;
+}
+
+#popup .tool {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+#popup .close {
+  width: 24px;
+  height: 24px;
+  background-color: #acacac;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 25px;
+  line-height: 0px;
+  position: relative;
+}
+
+#popup .close:after {
+  content: '';
+  position: absolute;
+  top: 22%;
+  left: 22%;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-image: url("../images/pop_close.png");
+  background-repeat: no-repeat;
+}
+
+#popup .pop_name {
+  display: block;
+  width: auto;
+  padding-left: 20px;
+  font-size: 20px;
+  font-weight: 550;
+  height: 24px;
+  line-height: 24px;
+}
+
+#popup .pop_con .img_1 {
+  display: block;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  max-width: 1090px;
+}
+
+#popup .pop_con .img_2 {
+  display: block;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  max-height: 715px;
+}
+
+#popup .pop_con .img_3 {
+  display: block;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  max-width: 990px;
+}
+
+#popup .pop_con .img_4 {
+  display: block;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  max-width: 960px;
+}
+
+#popup .pop_con .img_5 {
+  display: block;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  max-width: 700px;
+}
+
+#popup .pop_con .img_6 {
+  display: block;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  max-width: 930px;
+}
+
+#popup .pop_con .img_7 {
+  display: block;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  max-width: 1020px;
+}
+
+#popup .pop_con .img_8 {
+  display: block;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  max-width: 1060px;
+}
+
+#modal {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 100;
+}

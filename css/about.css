@@ -1,0 +1,147 @@
+#about {
+  left: 20%;
+  position: absolute;
+  width: 0;
+  height: 550px;
+  background-color: white;
+  top: 18%;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  transform: translateY(100%);
+  transition: all 500ms ease-in-out;
+  overflow: hidden;
+}
+
+#about.active {
+  width: 750px;
+  transform: translateY(0);
+  box-sizing: border-box;
+  border: 1px solid #838787;
+  z-index: +20;
+}
+
+#about .content {
+  width: 678px;
+  height: 440px;
+  margin: 55px 50px 30px 22px;
+  display: flex;
+}
+
+#about .content .box_1 {
+  width: 266px;
+  height: 440px;
+}
+
+#about .content .box_1 .photo {
+  width: 210px;
+  height: 210px;
+  margin-left: 28px;
+  border-radius: 50%;
+  background-color: #5bde38;
+}
+
+#about .content .box_1 .name {
+  width: 266px;
+  height: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+#about .content .box_1 .name li {
+  width: 100%;
+  height: 25px;
+  font-size: 24px;
+  text-align: center;
+  line-height: 25px;
+}
+
+#about .content .box_2 {
+  width: 412px;
+  height: 440px;
+}
+
+.box_2 .in_box_1 {
+  width: 390px;
+  height: 200px;
+  border-radius: 10px;
+  border: 2px solid black;
+  background-color: white;
+  margin-left: 18px;
+  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.box_2 .in_box_1 ul {
+  width: auto;
+}
+
+.box_2 .in_box_1 ul li {
+  /* font-size: 18px; */
+  line-height: 42px;
+  height: calc(100% / 4);
+}
+
+.box_2 .in_box_2 {
+  width: 390px;
+  height: 210px;
+  border-radius: 10px;
+  border: 2px solid black;
+  background-color: white;
+  margin-left: 18px;
+  margin-top: 12px;
+  box-sizing: border-box;
+  padding: 15px;
+}
+
+.box_2 .in_box_2 h2 {
+  font-size: 25px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.box_2 .in_box_2 .my_list {
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.box_2 .in_box_2 .my_list li {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  justify-content: end;
+}
+
+.box_2 .in_box_2 .my_list li button {
+  display: inline-block;
+  width: 50px;
+  height: 40px;
+  border-radius: 4px;
+  background-color: #3d405b;
+  border: none;
+  color: #fff;
+  text-align: center;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.box_2 .in_box_2 .my_list li p {
+  font-size: 16px;
+  line-height: 40px;
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  transition: all 300ms ease-in-out;
+}
+
+.box_2 .in_box_2 .my_list li p.on {
+  width: calc(100% - 50px);
+  height: auto;
+  margin-left: 25px;
+}

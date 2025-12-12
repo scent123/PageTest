@@ -1,0 +1,372 @@
+#skill {
+  width: 0;
+  height: 740px;
+  position: absolute;
+  top: 5%;
+  left: 6.5%;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  transform: translateY(100%);
+  transition: all 0.5s ease-in-out;
+  overflow: hidden;
+}
+
+section #skill.active {
+  width: 1040px;
+  transform: translateY(0);
+  box-sizing: border-box;
+  border: 1px solid #838787;
+  z-index: +20;
+}
+
+section #skill .content {
+  width: 100%;
+  height: 715px;
+  display: flex;
+}
+
+#skill .content .box_1 {
+  width: 200px;
+  height: inherit;
+  box-shadow: 1.5px 0px rgba(0, 0, 0, 0.3);
+}
+
+#skill .content .box_1 .btn_list li {
+  margin: 25px 15px 5px 15px;
+}
+
+#skill .content .box_1 button {
+  width: 170px;
+  height: 50px;
+  position: relative;
+  border: 1px solid #395b64;
+  border-radius: 10px;
+  background-color: #ffffff;
+  padding: 10px 30px 10px 10px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+#skill .content .box_1 button:after {
+  content: "";
+  width: 0;
+  height: 104%;
+  background: #a5c9ca;
+  border-radius: 10px;
+  position: absolute;
+  transition: all 400ms ease-in-out;
+  right: 0;
+  top: -1px;
+  left: -1px;
+  background-color: #a5c9ca;
+  color: #e9f9f4;
+  background-repeat: no-repeat;
+  background-position: 10px;
+}
+
+#skill .content .box_1 button:hover::after {
+  right: auto;
+  top: -1px;
+  left: -1px;
+  width: 102%;
+}
+
+#skill .content .box_1 button:hover span {
+  color: #e9f9f4;
+  font-weight: 500;
+}
+
+#skill .content .box_1 button span {
+  position: absolute;
+  font-size: 16px;
+  top: 30%;
+  right: 18%;
+  font-weight: 500;
+  z-index: 20;
+  transition: all 400ms ease-in-out;
+
+}
+
+#skill .content .box_1 .btn_1 {
+  background-image: url("../images/code_icon_default.png");
+  background-repeat: no-repeat;
+  background-position: 10px 5px;
+  transition: all 400ms ease-in-out;
+}
+
+#skill .content .box_1 .btn_2 {
+  background-image: url("../images/design_icon_default.png");
+  background-repeat: no-repeat;
+  background-position: 10px 5px;
+  transition: all 400ms ease-in-out;
+}
+
+#skill .content .box_1 .btn_3 {
+  background-image: url("../images/code_icon_default.png");
+  background-repeat: no-repeat;
+  background-position: 10px 5px;
+  transition: all 400ms ease-in-out;
+}
+
+#skill .content .box_1 .btn_list .btn_1::after {
+  background-image: url("../images/code_icon.png");
+}
+
+#skill .content .box_1 .btn_list .btn_2::after {
+  background-image: url("../images/design_icon.png");
+}
+
+#skill .content .box_1 .btn_list .btn_3::after {
+  background-image: url("../images/code_icon.png");
+}
+
+#skill .content .box_2 {
+  width: 840px;
+  height: inherit;
+  box-sizing: border-box;
+  padding: 22px 0px 0px 88px;
+  overflow: hidden;
+  display: flex;
+}
+
+#skill .content .box_2 ul li button:hover {
+  scale: 1.2;
+  transition: all 100ms ease-in;
+}
+
+/* develop */
+
+#skill .content .box_2 .list_1 {
+  width: 640px;
+  height: 675px;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 110px;
+}
+
+#skill .content .box_2 .list_1 li {
+  width: 640px;
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#skill .content .box_2 .list_1 li button {
+  width: 75px;
+  height: 75px;
+  border: none;
+  border-radius: 20px;
+  margin: 7px 0 7px 0;
+  padding: 6px 10px;
+  cursor: pointer;
+  background-color: #e7f6f2;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#skill .content .box_2 .list_1 li:first-child button {
+  background-image: url("../images/html.png");
+  background-size: 55px;
+}
+
+#skill .content .box_2 .list_1 li:nth-child(2) button {
+  background-image: url("../images/css.png");
+  background-size: 52px;
+}
+
+#skill .content .box_2 .list_1 li:nth-child(3) button {
+  background-image: url("../images/js.png");
+  background-size: 53px;
+}
+
+#skill .content .box_2 .list_1 li:nth-child(4) button {
+  background-image: url("../images/python.png");
+  background-size: 70px;
+}
+
+#skill .content .box_2 .list_1 li:nth-child(5) button {
+  background-image: url("../images/java.png");
+  background-size: 72px;
+}
+
+#skill .content .box_2 .list_1 li:last-child button {
+  background-image: url("../images/clang.png");
+  background-size: 66px;
+}
+
+/* design */
+
+#skill .content .box_2 .list_2 {
+  width: 640px;
+  height: 585px;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 110px;
+}
+
+#skill .content .box_2 .list_2 li {
+  width: 640px;
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#skill .content .box_2 .list_2 li button {
+  width: 75px;
+  height: 75px;
+  border: none;
+  border-radius: 20px;
+  margin: 7px 0 7px 0;
+  cursor: pointer;
+  background-color: #e7f6f2;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  background-size: 95px;
+  background-position: center;
+}
+
+#skill .content .box_2 .list_2 li:first-child button {
+  background-image: url("../images/phsp.png");
+}
+
+#skill .content .box_2 .list_2 li:nth-child(2) button {
+  background-image: url("../images/illur.png");
+}
+
+#skill .content .box_2 .list_2 li:nth-child(3) button {
+  background-image: url("../images/inde.png");
+}
+
+#skill .content .box_2 .list_2 li:nth-child(4) button {
+  background-image: url("../images/xd.png");
+}
+
+#skill .content .box_2 .list_2 li:nth-child(5) button {
+  background-image: url("../images/prem.png");
+}
+
+/* tools */
+
+#skill .content .box_2 .list_3 {
+  width: 640px;
+  height: 495px;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#skill .content .box_2 .list_3 li {
+  width: 640px;
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#skill .content .box_2 .list_3 li button {
+  width: 75px;
+  height: 75px;
+  border: none;
+  border-radius: 20px;
+  margin: 7px 0 7px 0;
+  cursor: pointer;
+  background-color: #e7f6f2;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 75px;
+}
+
+#skill .content .box_2 .list_3 li:first-child button {
+  background-image: url("../images/vscode.png");
+  background-size: 65px;
+}
+
+#skill .content .box_2 .list_3 li:nth-child(2) button {
+  background-image: url("../images/xcode.png");
+}
+
+#skill .content .box_2 .list_3 li:nth-child(3) button {
+  background-image: url("../images/eclipse.png");
+  /* background-size: 120px; */
+}
+
+#skill .content .box_2 .list_3 li:nth-child(4) button {
+  background-image: url("../images/intellij.png");
+}
+
+/* progress */
+.progress-bar {
+  width: 510px;
+  height: 32px;
+  background-color: #e6e6e6;
+  border-radius: 20px;
+  position: relative;
+
+  .progress-value {
+    min-width: 6%;
+    height: 32px;
+    background-color: #838787;
+    border-radius: 20px;
+    position: absolute;
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      right: 0;
+      box-sizing: border-box;
+      border: 1px solid rgb(208, 208, 208);
+      border-radius: 50%;
+      background-color: #fff;
+      box-shadow: 3px 1px 5px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+}
+
+.progress-move {
+  width: 66%;
+  animation: progress-move 1s ease-in-out;
+}
+
+@keyframes progress-move {
+  0% {
+    width: 10px;
+  }
+
+  100% {
+    width: 80%;
+  }
+}
+
+#skill .content .box_2 .text {
+  display: none;
+  position: absolute;
+  background-color: #e6e6e6;
+  width: 510px;
+  height: 50px;
+  left: 20%;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  &:after {
+    content: '';
+    top:25%;
+    left: -2%;
+    position: absolute;
+    border: 10px solid transparent;
+    border-right-color: #e6e6e6;
+    border-left: 0;
+    filter: drop-shadow(0px 2px 1px rgba(0, 0, 0, 0.09));
+
+  }
+}

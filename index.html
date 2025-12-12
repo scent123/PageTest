@@ -2,190 +2,316 @@
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/style.css">
-    <title>SeonJin Kim</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/about.css" />
+    <link rel="stylesheet" href="./css/skill.css" />
+    <link rel="stylesheet" href="./css/project.css" />
+    <link rel="stylesheet" href="./css/uiux.css" />
+    <link rel="stylesheet" href="./css/popup.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+    <title>kim's_portfolio</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="./js/script.js"></script>
 </head>
 
 <body>
-    <div class="window finder" data-app="finder">
-        <div class="header">
-            <div class="remote">
-                <div class="buttons close"></div>
-                <div class="buttons minimize"></div>
-                <div class="buttons zoom"></div>
+    <section>
+        <!-- -----------------------------about-------------------------- -->
+        <article id="about">
+            <div class="head">
+                <button class="btn_1"></button>
+                <button class="btn_2"></button>
+                <button class="btn_3"></button>
             </div>
-            <div class="directory">
-                <div class="folder-icon"></div>
-                <h2 class="folder-name"></h2>
-            </div>
-        </div>
-        <div class="content">
-        </div>
-
-        <!-- resize-handles -->
-        <div class="resize-handle top"></div>
-        <div class="resize-handle right"></div>
-        <div class="resize-handle bottom"></div>
-        <div class="resize-handle left"></div>
-
-        <div class="resize-handle top-left"></div>
-        <div class="resize-handle top-right"></div>
-        <div class="resize-handle bottom-left"></div>
-        <div class="resize-handle bottom-right"></div>
-    </div>
-
-    <div class="window calculator" data-app="calculator">
-        <div class="header">
-            <div class="remote">
-                <div class="buttons close"></div>
-                <div class="buttons minimize"></div>
-                <div class="buttons zoom"></div>
-            </div>
-        </div>
-        <div class="content">
-            <div class="display-wrapper">
-                <div class="display-blur"></div>
-                <div class="display">
-                    <div class="display-inner">
-                        <div class="formula"></div>
-                        <div class="current">0</div>
+            <div class="content">
+                <div class="box_1">
+                    <img src="./images/profile_photo.JPG" alt="profile_photo" class="photo" />
+                    <ul class="name">
+                        <li>김선진</li>
+                        <li>1999.11.14</li>
+                        <li>010-3367-4571</li>
+                        <li>ydsmj4571@gmail.com</li>
+                    </ul>
+                </div>
+                <div class="box_2">
+                    <div class="in_box_1">
+                        <ul class="career">
+                            <li>운전면허 1종 취득</li>
+                            <li>한국폴리텍대학 광주캠퍼스 전자과 졸업</li>
+                            <li>컴퓨터그래픽스운용기능사 취득</li>
+                            <li>웹 디자인 기능사 취득</li>
+                        </ul>
+                        <ul class="year">
+                            <li>2021.02</li>
+                            <li>2022.02</li>
+                            <li>2022.04</li>
+                            <li>2022.09</li>
+                        </ul>
+                    </div>
+                    <div class="in_box_2">
+                        <h2>자기소개</h2>
+                        <ul class="my_list">
+                            <li>
+                                <button class="btn_1">&lt;</button>
+                                <p class="text">가장 최선의 미래는 오늘 바꾼다.</p>
+                            </li>
+                            <li>
+                                <button class="btn_1">&lt;</button>
+                                <p class="text">위가 아닌 대각선도 나아가는 건 똑같다.</p>
+                            </li>
+                            <li>
+                                <button class="btn_1">&lt;</button>
+                                <p class="text">주어진 일에 대해 최선을 다하는 사람이 되자.</p>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="buttons">
-                <button class="btn grey" data-value="back">⌫</button>
-                <button class="btn grey" data-value="AC">AC</button>
-                <button class="btn grey">&#37;</button>
-                <button class="btn orange" data-value="/">&#247;</button>
+        </article>
 
-                <button class="btn">7</button>
-                <button class="btn">8</button>
-                <button class="btn">9</button>
-                <button class="btn orange" data-value="*">&#10005;</button>
+        <!-- ----------------------skill------------------------ -->
+        <article id="skill">
+            <div class="head">
+                <button class="btn_1"></button>
+                <button class="btn_2"></button>
+                <button class="btn_3"></button>
+            </div>
+            <div class="content">
+                <div class="box_1">
+                    <ul class="btn_list">
+                        <li><button class="btn_1"><span>DEVELOP</span></button></li>
+                        <li><button class="btn_2"><span>DESIGN</span></button></li>
+                        <li><button class="btn_3"><span>TOOLS</span></button></li>
+                    </ul>
+                </div>
+                <div class="box_2">
+                    <ul class="list_1">
+                        <li>
+                            <button class="html"></button>
+                            <div class="progress-bar"><span class="progress-value html_pro"></span></div>
+                        </li>
+                        <li>
+                            <button class="css"></button>
+                            <div class="progress-bar"><span class="progress-value css_pro"></span></div>
+                        </li>
+                        <li>
+                            <button class="js"></button>
+                            <div class="progress-bar"><span class="progress-value js_pro"></span></div>
+                        </li>
+                        <li>
+                            <button class="python"></button>
+                            <div class="progress-bar"><span class="progress-value py_pro"></span></div>
+                        </li>
+                        <li>
+                            <button class="java"></button>
+                            <div class="progress-bar"><span class="progress-value java_pro"></span></div>
+                        </li>
+                        <li>
+                            <button class="clang"></button>
+                            <div class="progress-bar"><span class="progress-value clang_pro"></span></div>
+                        </li>
+                    </ul>
+                    <ul class="list_2">
+                        <li>
+                            <button class="phsp"></button>
+                            <div class="progress-bar"><span class="progress-value phsp_pro"></span></div>
+                        </li>
+                        <li>
+                            <button class="illur"></button>
+                            <div class="progress-bar"><span class="progress-value illur_pro"></span></div>
+                        </li>
+                        <li>
+                            <button class="inde"></button>
+                            <div class="progress-bar"><span class="progress-value inde_pro"></span></div>
+                        </li>
+                        <li>
+                            <button class="xd"></button>
+                            <div class="progress-bar"><span class="progress-value xd_pro"></span></div>
+                        </li>
+                        <li>
+                            <button class="prem"></button>
+                            <div class="progress-bar"><span class="progress-value prem_pro"></span></div>
+                        </li>
+                    </ul>
+                    <ul class="list_3">
+                        <li>
+                            <button class="vscode"></button>
+                            <div class="progress-bar"><span class="progress-value vscode_pro"></span></div>
+                        </li>
+                        <li>
+                            <button class="xcode"></button>
+                            <div class="progress-bar"><span class="progress-value xcode_pro"></span></div>
+                        </li>
+                        <li>
+                            <button class="ecplipse"></button>
+                            <div class="progress-bar"><span class="progress-value eclipse_pro"></span></div>
+                        </li>
+                        <li>
+                            <button class="Intellij"></button>
+                            <div class="progress-bar"><span class="progress-value intel_pro"></span></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+        <!-- ----------------------------------project---------------------------- -->
+        <article id="project">
+            <div class="head">
+                <button class="btn_1"></button>
+                <button class="btn_2"></button>
+                <button class="btn_3"></button>
+            </div>
+            <div class="content">
+                <div class="box_1">
+                    <ul class="pro_view">
+                        <li>
+                            <div class="view_1"></div>
+                        </li>
+                        <li>
+                            <div class="view_2"></div>
+                        </li>
+                        <li>
+                            <div class="view_3"></div>
+                        </li>
+                        <li>
+                            <div class="view_4"></div>
+                        </li>
+                        <li>
+                            <div class="view_5"></div>
+                        </li>
+                    </ul>
+                    <ul class="pro_list">
+                        <li>
+                            <div class="img_1">1</div>
+                        </li>
+                        <li>
+                            <div class="img_2">2</div>
+                        </li>
+                        <li>
+                            <div class="img_3">3</div>
+                        </li>
+                        <li>
+                            <div class="img_4">4</div>
+                        </li>
+                        <li>
+                            <div class="img_5">5</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box_2">
+                    <h2>Ando Tadao</h2>
+                    <ul class="name_list">
+                        <li>일본의 한 건축가 ‘안도 다다오’의 작품에 대해 소개하는 사이트</li>
+                        <ul class="day">
+                            <li>프로젝트 시작일:</li>
+                            <li>2023.09.13</li>
+                            <li>프로젝트 종료일:</li>
+                            <li>2023.12.02</li>
+                            <li>규격:</li>
+                            <li>1920x1080</li>
+                        </ul>
+                        <li>고정형 웹 형태로 제작</li>
+                    </ul>
+                    <a href=""><button class="link_1">바로가기</button></a>
+                </div>
+            </div>
+        </article>
 
-                <button class="btn">4</button>
-                <button class="btn">5</button>
-                <button class="btn">6</button>
-                <button class="btn orange" data-value="-">&#8722;</button>
+        <!-- -----------------------------uiux--------------------- -->
+        <article id="uiux">
+            <div class="head">
+                <button class="btn_1"></button>
+                <button class="btn_2"></button>
+                <button class="btn_3"></button>
+            </div>
+            <div class="content">
+                <ul class="pjt">
+                    <li>
+                        <img src="./images/dubai.jpg" alt="travel_web" />
+                        <p>여행사 홈페이지.jpg</p>
+                    </li>
+                    <li>
+                        <img src="./images/iPhone-fin.JPG" alt="iphone_web" />
+                        <p>아이폰 웹 페이지.jpg</p>
+                    </li>
+                    <li>
+                        <img src="./images/gym.jpg" alt="gym_banner" />
+                        <p>헬스장 웹 배너.jpg</p>
+                    </li>
+                    <li>
+                        <img src="./images/BESPOKE.jpg" alt="bespoke_banner" />
+                        <p>비스포크 웹 배너.jpg</p>
+                    </li>
+                    <li>
+                        <img src="./images/insta_.jpg" alt="subway_insta" />
+                        <p>서브웨이 인스타.jpg</p>
+                    </li>
+                    <li>
+                        <img src="./images/blog_banner.jpg" alt="subway_banner" />
+                        <p>서브웨이 웹 배너.jpg</p>
+                    </li>
+                    <li>
+                        <img src="./images/kream.jpg" alt="kream_banner" />
+                        <p>크림 웹 배너.jpg</p>
+                    </li>
+                    <li>
+                        <img src="./images/study.jpg" alt="study_banner" />
+                        <p>뇌새김 웹 배너.jpg</p>
+                    </li>
+                </ul>
+            </div>
+        </article>
 
-                <button class="btn">1</button>
-                <button class="btn">2</button>
-                <button class="btn">3</button>
-                <button class="btn orange" data-value="+">&#43;</button>
 
-                <button class="btn">+/-</button>
-                <button class="btn">0</button>
-                <button class="btn">&#46;</button>
-                <button class="btn orange" data-value="=">&#61;</button>
+    </section>
+    <!-- -------------------------popup-------------------------- -->
+    <div id="modal">
+        <div id="popup">
+            <div class="pop_con">
+                <div class="tool">
+                    <button class="close"></button>
+                    <span class="pop_name"></span>
+                </div>
+                <div class="pop_img">
+                    <img class="img_1" src="./images/dubai.jpg" alt="" />
+                    <img class="img_2" src="./images/iPhone-fin.JPG" alt="" />
+                    <img class="img_3" src="./images/gym.jpg" alt="" />
+                    <img class="img_4" src="./images/bespoke.jpg" alt="" />
+                    <img class="img_5" src="./images/insta_.jpg" alt="" />
+                    <img class="img_6" src="./images/blog_banner.jpg" alt="" />
+                    <img class="img_7" src="./images/kream.jpg" alt="" />
+                    <img class="img_8" src="./images/study.jpg" alt="" />
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="window weather" data-app="weather">
-        <div class="header">
-            <div class="remote">
-                <div class="buttons close"></div>
-                <div class="buttons minimize"></div>
-                <div class="buttons zoom"></div>
-            </div>
-        </div>
-        <div class="content">
-            <div class="weather-current">
-                <div class="location">-</div>
-                <div class="temp">-°</div>
-                <div class="condition">-</div>
-                <div class="hi-low">최고: --° / 최저: --°</div>
-            </div>
-
-            <div class="weather-hourly">
-                <div class="hourly-summary">-</div>
-                <div class="hourly-scroll">
-                    <!--  -->
-                </div>
-            </div>
-
-            <div class="weather-daily">
-                <div class="daily-header">
-                    <img src="./images/daily-icon.png" alt="calender-icon">
-                    <span class="daily-title">10일간의 일기예보</span>
-                </div>
-                <div class="daily-scroll">
-                    <!--  -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <main>
-        <section class="app-grid">
-            <h2>app-launchPad</h2>
-            <button class="app" data-app="finder">
-                <img src="./images/Profile.png" alt="Profile-image" class="icon-picture">
-                <span class='app-name'>Profile</span>
-            </button>
-            <button class="app" data-app="finder">
-                <img src="./images/Design.png" alt="Design-image" class="icon-picture">
-                <span class='app-name'>Design</span>
-            </button>
-            <button class="app" data-app="finder">
-                <img src="./images/Projects.png" alt="Projects-image" class="icon-picture">
-                <span class='app-name'>Projects</span>
-            </button>
-            <button class="app" data-app="finder">
-                <img src="./images/Tools.png" alt="Tools-image" class="icon-picture">
-                <span class='app-name'>Tools</span>
-            </button>
-            <button class="app" data-app="calculator">
-                <img src="./images/calculator.png" alt="Calculator-image" class="icon-picture">
-                <span class='app-name'>Calculator</span>
-            </button>
-            <button class="app" data-app="weather">
-                <img src="./images/Weather.png" alt="Weather-image" class="icon-picture">
-                <span class='app-name'>Weather</span>
-            </button>
-            <a class="app" data-app="resume"
-                href="https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link"
-                target="_blank" rel="noopener noreferrer">
-                <img src="./images/resume.png" alt="Resume-image" class="icon-picture">
-                <span class='app-name'>Resume</span>
-            </a>
-            <a class="app" data-app="snippets"
-                href="https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link"
-                target="_blank" rel="noopener noreferrer">
-                <img src="./images/Snippets.png" alt="Snippets-image" class="icon-picture">
-                <span class='app-name'>Snippets</span>
-            </a>
-        </section>
-    </main>
-
-<nav class="dock-menu" aria-label="Start Menu">
-    <div class="dock-menu-overlay">
-        <h2 class="menu-header">Recent Items</h2>
-        <ul class="menu-list"></ul>
-    </div>
-    <input type="search" class="menu-search" placeholder="Search for ..."/>
-</nav>
-
-    <footer class="dock">
-        <div class="dock-start">SeonJin Kim</div>
-        <div class="dock-icons">
-            <button class="dock-icon" data-app="finder"><img src="./images/folder.png" alt=""></button>
-            <button class="dock-icon" data-app="calculator"><img src="./images/calculator.png" alt=""></button>
-            <button class="dock-icon" data-app="weather"><img src="./images/Weather.png" alt=""></button>
-            <a class="dock-icon" data-app="resume"
-                href="https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link"
-                target="_blank" rel="noopener noreferrer"><img src="./images/resume.png" alt=""></a>
-            <a class="dock-icon" data-app="snippets"
-                href="https://pickled-butterkase-d37.notion.site/my_reference-11c76061cfcd8078b1aef43102c6b840?source=copy_link"
-                target="_blank" rel="noopener noreferrer"><img src="./images/Snippets.png" alt=""></a>
-        </div>
-        <div class="dock-clock"></div>
+    <!-- ----------------------footer-------------------------- -->
+    <footer>
+        <ul id="footer_list_name">
+            <li>Contact</li>
+            <li>Terminal</li>
+            <li>Keynote</li>
+            <li>Finder</li>
+        </ul>
+        <ul id="footer_list">
+            <li id="contact">
+                <button><img src="./images/contact.png" alt="contact" /></button>
+            </li>
+            <li id="terminal">
+                <button><img src="./images/terminal.png" alt="terminal" /></button>
+            </li>
+            <li id="keynote">
+                <button><img src="./images/keynote.png" alt="keynote" /></button>
+            </li>
+            <li id="finder">
+                <button><img src="./images/finder.png" alt="finder" /></button>
+            </li>
+        </ul>
     </footer>
-
-    <script type="module" src="./js/main.js"></script>
 </body>
 
 </html>
